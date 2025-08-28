@@ -1,0 +1,70 @@
+---
+title: "Data_Science"
+author: "Saurabh Gupta"
+Date: 27 Aug 2025
+format: html
+editor: visual
+---
+
+## 
+
+# Part 1 — Data Science
+
+**What do you think being a data scientist is about?**\
+A data scientist is about using data to **find patterns to support the decision making**. A data scientist collect and analyze the raw data to interpret information out of it. Often blending statistical programming to obtain the information and making some predictions.\
+The work usually involves data prepare and clean up, looking for trends in it, and translating those findings into accurate and useful insights to support the decision making process.
+
+**What differences/similarities do you see between data scientists and statisticians?**\
+Both data scientists and statisticians work with data to answer questions and make sense of information.  They share the common task of **collecting data and analyzing it** to find insights.   Statisticians usually concentrate on applying **mathematical and statistical models**, creating studies, and making sure results are accurate and reliable.\
+Data scientists, meanwhile, not only analyze but also manage and extract data, often building systems or tools that automate the process and turn findings into practical results.\
+In simple terms, statisticians lean toward careful mathematical modeling and interpretation, while data scientists blend those methods with programming to create solutions that can be scaled and applied in real-world settings.
+
+**How do you view yourself in relation to these two areas?**\
+I am having a good understanding of both statistics and data science since I have studied them both in detail.\
+From the **statistician’s side**, I apply methods like hypothesis testing and probability to make sound decisions.\
+From the **data scientist’s side**, I like collecting ad leaning data, performing exploratory analysis, creating models, and generating predictions that lead to actionable insights.\
+My long term goal is to bring these two areas together and apply them in the field of **Artificial Intelligence.**
+
+# Part 2 — Data Science
+
+### Add the iris data set
+
+```{r}
+# Add the iris dataset
+y <- density(iris$Petal.Width)
+```
+
+### Find the class of y object
+
+```{r}
+# Class of y object
+class(y)
+
+```
+
+### Find the type of y object
+
+```{r}
+# Type of y object 
+typeof(y)
+```
+
+### Find the structure of y object
+
+```{r}
+# Structure of y object 
+structure(y)
+
+```
+
+### Plot the graph on iris data set
+
+```{r}
+#| echo: false
+plot(y, main = "Density of Iris Petal.Width")
+```
+
+# End of Data Science Homework 01
+
+```         
+```
