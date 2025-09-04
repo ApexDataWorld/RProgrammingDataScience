@@ -9,7 +9,7 @@ editor: visual
 
 ## Task 1: Basic Vector Practice
 
-In this section, we create two vectors for pre- and post-treatment blood pressure values, assign subject names, compute per-subject changes, and summarize decreases.
+Create two vectors for pre and post treatment blood pressure values
 
 ```{r}
 # Create two vectors
