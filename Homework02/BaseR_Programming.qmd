@@ -1,0 +1,196 @@
+---
+title: "BaseR_Programming"
+author: "Saurabh Gupta"
+format: html
+editor: visual
+---
+
+## Homework 02
+
+## Task 1: Basic Vector Practice
+
+In this section, we create two vectors for pre- and post-treatment blood pressure values, assign subject names, compute per-subject changes, and summarize decreases.
+
+```{r}
+# Create two vectors
+pre_measurements <- c(120, 151, 125, 126, 115, 132, 132, 129, 134, 139,
+127, 122, 127, 135, 133, 128, 147, 138, 140, 132)
+
+post_measurements <- c(127, 145, 135, 122, 115, 122, 123, 126, 126, 129,
+132, 146, 120, 114, 121, 120, 128, 120, 133, 115)
+
+# Assign names to the vector elements using the paste() function
+subject_names <- paste("Subject", 1:20, sep = "_")
+names(pre_measurements) <- subject_names
+names(post_measurements) <- subject_names
+
+pre_measurements
+post_measurements
+```
+
+Calculate the change in blood pressure for each patient
+
+```{r}
+# subtracting post-treatment measurements from pre-treatment measurements
+change_in_blood_pressure <- pre_measurements - post_measurements
+
+# Print first few values
+#head(change_in_blood_pressure)
+print(change_in_blood_pressure)
+```
+
+Calculate the average decrease in blood pressure across all patients.
+
+```{r}
+# Use the mean() function here!
+average_bp_all_patients <- mean(change_in_blood_pressure)
+average_bp_all_patients
+```
+
+Determine which patients experienced a decrease in blood pressure after treatment
+
+```{r}
+# Use the which() function to just return the indices
+decreased_bp_after_treatment <- which(change_in_blood_pressure > 0)
+print(decreased_bp_after_treatment)
+print("Ptient names with decreased blood pressure are:"  )
+names(change_in_blood_pressure)[decreased_bp_after_treatment]
+print("Total patients with decreased blood pressure are:"  )
+length(decreased_bp_after_treatment)
+```
+
+Subset the vector of differences to only return those that have a positive change.
+
+```{r}
+# Only positive changes
+positive_changes <- change_in_blood_pressure[change_in_blood_pressure > 0]
+positive_changes
+```
+
+Calculate the average decrease in blood pressure
+
+```{r}
+# for those where the blood pressure decreased
+mean_decreased_bp_positive_only <- mean(positive_changes)
+print("Average decrease in blood pressure -")
+mean_decreased_bp_positive_only
+```
+
+# Task 2: Basic Data Frame Practice
+
+Create a data frame object with four columns
+
+```{r}
+# Build a data frame with patient, pre, post, and diff
+blood_pressure_dataframe <- data.frame(
+patient = subject_names,
+pre_bp = as.numeric(pre_measurements),
+post_bp = as.numeric(post_measurements),
+diff_bp = as.numeric(change_in_blood_pressure)
+)
+
+# Print data 
+print(blood_pressure_dataframe)
+```
+
+Return only rows of the data frame where the diff_bp column is negative. 
+
+```{r}
+# Using [ subsetting on the data frame
+#blood_pressure_increased <- #blood_pressure_dataframe[blood_pressure_dataframe$change_in_blood_pressure < 0, ]
+
+# Or use subset
+blood_pressure_increased <- subset(blood_pressure_dataframe, change_in_blood_pressure < 0)
+
+blood_pressure_increased
+```
+
+Add a new column to the data frame corresponding to TRUE if the post_bp is less than 120 and FALSE if it is not.
+
+```{r}
+# Create a new column using $ 
+blood_pressure_dataframe$post_bp_below_120 <- blood_pressure_dataframe$post_bp < 120
+
+# check the data
+print(blood_pressure_dataframe)
+```
+
+Print the data frame nicely using `knitr::kable()`.
+
+```{r}
+knitr::kable(blood_pressure_dataframe, caption = "Blood Pressure (Treatment) with difference and higher than 120")
+```
+
+# Task 3: List Practice
+
+Continue the previous example. Suppose we now also have data from another experiment 
+
+```{r}
+# Placebo pre and post values 
+pre_treatment_placebo <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+post_treatment_placebo <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+
+placebo_names <- paste("Subject", 1:10, sep = "_")
+#names(pre_treatment_placebo) <- placebo_names
+#names(post_treatment_placebo) <- placebo_names
+
+# Create the placebo data frame 
+placebo_dataframe <- data.frame(
+patient = placebo_names,
+pre_bp = pre_treatment_placebo,
+post_bp = post_treatment_placebo,
+diff_bp = pre_treatment_placebo - post_treatment_placebo
+)
+
+print("print placebo dataframe")
+print(placebo_dataframe)
+
+
+# Add the same column for post < 120
+placebo_dataframe$post_bp_below_120 <- placebo_dataframe$post_bp < 120
+
+# Preview
+placebo_dataframe
+```
+
+Create a list with two named elements - `treatment` ( first data frame) and `placebo` ( second data frame).
+
+```{r}
+# Add the two data frames in a list
+final_list <- list(
+treatment = blood_pressure_dataframe,
+placebo = placebo_dataframe
+)
+
+# Print data
+print(final_list)
+```
+
+Access the **first list element** using three different syntaxes
+
+```{r}
+# 1) By position with [[ ]] returns the object 
+final_list[[1]]
+
+# 2) By name with $ returns the object 
+final_list$treatment
+
+# 3) By name with [ ] returns a list containing that element
+final_list["treatment"]
+
+#4) By using get element 
+getElement(final_list, "treatment")
+```
+
+In **one line of code**, access the `pre_bp` column of the **placebo** data frame.
+
+```{r}
+# Get placebo pre_bp from the list
+final_list$placebo$pre_bp
+
+# Or use this 
+# final_list[[2]][1]
+# final_list[["placebo"]][["pre_bp"]]
+```
+
+# End of Data Science Homework 02

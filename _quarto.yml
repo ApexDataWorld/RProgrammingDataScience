@@ -3,3 +3,5 @@ project:
   output-dir: docs
   render:
     - Homework01/*.qmd
+    - Homework02/*.qmd
+    
