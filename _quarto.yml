@@ -4,4 +4,5 @@ project:
   render:
     - Homework01/*.qmd
     - Homework02/*.qmd
+    - Homework03/*.qmd
     

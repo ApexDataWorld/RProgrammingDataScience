@@ -1,0 +1,208 @@
+---
+title: "Placebo_BP_Treatment"
+author: "Saurabh Gupta"
+format: html
+editor: visual
+---
+
+## Setting up environment:
+
+Load the data file
+
+```{r}
+# Load the data file
+load("hw2_list.rda")
+```
+
+```{r}
+# Print data
+str(bp_list)
+```
+
+## Task 1: Control Flow Practice
+
+create a new column in each data frame from above called status. 
+
+```{r}
+#Find number of rows
+nrows_treatment <- nrow(bp_list$treatment)
+print(nrows_treatment)
+```
+
+Initialize the column with right length
+
+```{r}
+# Initialize the column with right length 
+bp_list$treatment$status <- character(nrows_treatment)
+```
+
+For the non-placebo data frame (within the list), create a for loop and use if/then/else logic to create the status column’s values.
+
+```{r}
+#Fill status with for/if/else using post_bp data
+for (i in seq_len(nrows_treatment)) {
+  bp <- bp_list$treatment$post_bp[i]
+  if (bp <= 120) {
+    bp_list$treatment$status[i] <- "optimal"
+  } else if (bp <= 130) {
+    bp_list$treatment$status[i] <- "borderline"
+  } else {
+    bp_list$treatment$status[i] <- "high"
+  }
+}
+```
+
+print data`to validate`
+
+```{r}
+# More checks
+print(table(bp_list$treatment$status, useNA = "ifany"))
+```
+
+```{r}
+# Show first 20 rows 
+print(knitr::kable(head(bp_list$treatment, 20), 
+                   caption = "Treatment: first 20 rows with status"))
+```
+
+create a new column in each data frame from above called status – PLACEBO
+
+```{r}
+# Find number of rows
+nrows_placebo <- nrow(bp_list$placebo)
+print(nrows_placebo)
+```
+
+Initialize the column with right length
+
+```{r}
+# Initialize the column with right length 
+bp_list$placebo$status <- character(nrows_placebo)
+```
+
+For the placebo data frame (within the list), create a for loop and use if/then/else logic to create the status column’s values.
+
+```{r}
+#Fill status with for/if/else using post_bp data
+for (i in seq_len(nrows_placebo)) {
+  bp <- bp_list$placebo$post_bp[i]
+  if (bp <= 120) {
+    bp_list$placebo$status[i] <- "optimal"
+  } else if (bp <= 130) {
+    bp_list$placebo$status[i] <- "borderline"
+  } else {
+    bp_list$placebo$status[i] <- "high"
+  }
+}
+```
+
+Print data to validate
+
+```{r}
+# More checks
+print(table(bp_list$placebo$status, useNA = "ifany"))
+```
+
+```{r}
+# Show first 10 rows 
+print(knitr::kable(head(bp_list$placebo, 10), 
+                   caption = "Placebo: first 10 rows with status"))
+```
+
+## Task 2: Function Writing
+
+Task 2 (Function Writing) — Summary\
+Write a function that\
+Accepts a list with TWO data frames - treatment and placebo\
+Accepts a summary function name stat, resolved via my_fun \<- get(stat)\
+Computes the statistic for pre_bp, post_bp, and diff_bp in both data frames\
+Returns those six values as a named list with names\
+Print data using the default and with var, sd, min and max
+
+```{r}
+# Define function (bp_list and stat)
+patient_summary <- function(bp_list, stat = "mean") {
+  
+  # Basic validation for list type and 2 elements
+  stopifnot(is.list(bp_list))
+  
+  if (length(bp_list) != 2) {
+    stop("The list should have exactly 2 data frames: treatment and placebo data.")
+  }
+
+  # Add names and columns
+  required_df_names  <- c("treatment", "placebo")
+  required_col_names <- c("pre_bp", "post_bp", "diff_bp")
+
+  if (!all(required_df_names %in% names(bp_list))) {
+    stop("List must contain elements treatmnet and placebo")
+  }
+  
+  for (i in required_df_names) {
+    if (!all(required_col_names %in% names(bp_list[[i]]))) {
+      stop(paste0("Missing required columns in '", i, "'. Required : ", 
+                  paste(required_col_names, collapse = ", ")))
+    }
+  }
+
+  # check the statistic function
+  if (!exists(stat, mode = "function")) {
+    stop(paste0("'", stat, "' is not a valid function name."))
+  }
+  
+  stat_fun <- get(stat, mode = "function")
+
+  # function to add stats
+ apply_stat <- function(x) {
+  if ("na.rm" %in% names(formals(stat_fun))) {
+    stat_fun(x, na.rm = TRUE)
+  } else {
+    stat_fun(x)
+  }
+}
+
+  # The order to execute flow as : treatment then placebo and then pre -> post -> diff
+  vals <- c()
+  stat_names  <- c()
+  for (df_name in required_df_names) {
+    for (col in required_col_names) {
+      vals <- c(vals, apply_stat(bp_list[[df_name]][[col]]))
+      stat_names  <- c(stat_names, paste0(stat, "_", df_name, "_", col))
+    }
+  }
+
+  # Name the values and return
+  
+  names(vals) <- stat_names
+  
+  as.list(vals)
+}
+
+
+
+```
+
+Print all the computed statistics
+
+```{r}
+# Show the mean of all the values
+print(patient_summary(bp_list)) 
+
+# Show the variance of all the values
+print(patient_summary(bp_list, "var"))
+
+# Show the sd of all the values
+print(patient_summary(bp_list, "sd"))
+
+# Show the min of all the values
+print(patient_summary(bp_list, "min"))
+
+# Show the max of all the values
+print(patient_summary(bp_list, "max")) 
+
+ 
+```
+
+# END Of Homework 03
+
+## 
