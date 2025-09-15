@@ -2,7 +2,82 @@ project:
   type: website
   output-dir: docs
   render:
-    - Homework01/*.qmd
-    - Homework02/*.qmd
-    - Homework03/*.qmd
-    
+    - index.qmd
+    - "Homework*/**/*.qmd"
+    - "Project/**/*.qmd"
+
+website:
+  title: "ST 558 Assignments & Projects"
+  page-navigation: true
+  reader-mode: true
+
+  navbar:
+    background: primary
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Homework
+        menu:
+          - text: Homework 01
+            href: Homework01/Data_Science.qmd
+          - text: Homework 02
+            href: Homework02/BaseR_Programming.qmd
+          - text: Homework 03
+            href: Homework03/Placebo_BP_Treatment.qmd
+          - text: Homework 04
+            href: Homework04/index.qmd
+          - text: Homework 05
+            href: Homework05/index.qmd
+      - text: Project
+        menu:
+          - text: MidTerm Project 1
+            href: MidTermProject1/index.qmd
+          - text: MidTerm Project 2
+            href: MidTermProject2/index.qmd
+          - text: Final Project
+            href: FinalProject1/index.qmd
+
+  sidebar:
+    style: docked
+    search: true
+    collapse-level: 2
+    contents:
+      - section: "Homework 1"
+        href: Homework01/index.qmd
+        contents:
+          - Homework01/Data_Science.qmd
+      - section: "Homework 2"
+        href: Homework02/index.qmd
+        contents:
+          - Homework02/BaseR_Programming.qmd
+      - section: "Homework 3"
+        href: Homework03/index.qmd
+        contents:
+          - Homework03/Placebo_BP_Treatment.qmd
+      - section: "Homework 4"
+        href: Homework04/index.qmd
+        contents:
+          - Homework04/pages/concepts.qmd
+          - Homework04/pages/read_delimited.qmd
+          - Homework04/pages/combining.qmd
+      - section: "Homework 5"
+        href: Homework05/index.qmd
+        contents:
+          - Homework05/pages/concepts.qmd
+      - section: "Projects"
+        contents:
+          - MidTermProject1/index.qmd
+          - MidTermProject2/index.qmd
+          - FinalProject/index.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    grid:
+      sidebar-width: 300px
+
+callout-appearance: simple
+date: today
+date-format: iso
