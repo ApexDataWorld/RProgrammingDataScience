@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Saurabh Gupta">
-<meta name="dcterms.date" content="2025-09-14">
+<meta name="dcterms.date" content="2025-09-17">
 
 <title>Reading Delimited Data – ST 558 Assignments &amp; Projects</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -297,8 +331,17 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-2-reading-delimited-data" id="toc-task-2-reading-delimited-data" class="nav-link active" data-scroll-target="#task-2-reading-delimited-data">Task 2 Reading Delimited Data</a>
+  <ul class="collapse">
+  <li><a href="#yeast-data" id="toc-yeast-data" class="nav-link" data-scroll-target="#yeast-data">Yeast data</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -322,7 +365,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-09-14</p>
+      <p class="date">2025-09-17</p>
     </div>
   </div>
   
@@ -334,9 +377,762 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Answers go here!</p>
+<section id="task-2-reading-delimited-data" class="level1">
+<h1>Task 2 Reading Delimited Data</h1>
+<section id="load-the-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="load-the-libraries">Load the libraries</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>glass_colnames <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Id"</span>,<span class="st">"RI"</span>,<span class="st">"Na"</span>,<span class="st">"Mg"</span>,<span class="st">"Al"</span>,<span class="st">"Si"</span>,<span class="st">"K"</span>,<span class="st">"Ca"</span>,<span class="st">"Ba"</span>,<span class="st">"Fe"</span>,<span class="st">"Type"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="read-add-column-names-and-print-tibble" class="level4">
+<h4 class="anchored" data-anchor-id="read-add-column-names-and-print-tibble">Read, add column names, and print tibble</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>glass <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www4.stat.ncsu.edu/~online/datasets/glass.data"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> glass_colnames,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>glass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214 × 11
+      Id    RI    Na    Mg    Al    Si     K    Ca    Ba    Fe  Type
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1  1.52  13.6  4.49  1.1   71.8  0.06  8.75     0  0        1
+ 2     2  1.52  13.9  3.6   1.36  72.7  0.48  7.83     0  0        1
+ 3     3  1.52  13.5  3.55  1.54  73.0  0.39  7.78     0  0        1
+ 4     4  1.52  13.2  3.69  1.29  72.6  0.57  8.22     0  0        1
+ 5     5  1.52  13.3  3.62  1.24  73.1  0.55  8.07     0  0        1
+ 6     6  1.52  12.8  3.61  1.62  73.0  0.64  8.07     0  0.26     1
+ 7     7  1.52  13.3  3.6   1.14  73.1  0.58  8.17     0  0        1
+ 8     8  1.52  13.2  3.61  1.05  73.2  0.57  8.24     0  0        1
+ 9     9  1.52  14.0  3.58  1.37  72.1  0.56  8.3      0  0        1
+10    10  1.52  13    3.6   1.36  73.0  0.57  8.4      0  0.11     1
+# ℹ 204 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="start-a-chain-to-overwrite-type-with-meaningful-labels" class="level4">
+<h4 class="anchored" data-anchor-id="start-a-chain-to-overwrite-type-with-meaningful-labels">Start a chain to overwrite&nbsp;<code>Type</code>&nbsp;with meaningful labels</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>glass_labeled <span class="ot">&lt;-</span> glass <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type_of_glass =</span> <span class="fu">case_when</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"building_windows_float_processed"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"building_windows_non_float_processed"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"vehicle_windows_float_processed"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"vehicle_windows_non_float_processed"</span>,  <span class="co"># none in this db</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"containers"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">"tableware"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      Type <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"headlamps"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>glass_labeled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214 × 12
+      Id    RI    Na    Mg    Al    Si     K    Ca    Ba    Fe  Type
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1  1.52  13.6  4.49  1.1   71.8  0.06  8.75     0  0        1
+ 2     2  1.52  13.9  3.6   1.36  72.7  0.48  7.83     0  0        1
+ 3     3  1.52  13.5  3.55  1.54  73.0  0.39  7.78     0  0        1
+ 4     4  1.52  13.2  3.69  1.29  72.6  0.57  8.22     0  0        1
+ 5     5  1.52  13.3  3.62  1.24  73.1  0.55  8.07     0  0        1
+ 6     6  1.52  12.8  3.61  1.62  73.0  0.64  8.07     0  0.26     1
+ 7     7  1.52  13.3  3.6   1.14  73.1  0.58  8.17     0  0        1
+ 8     8  1.52  13.2  3.61  1.05  73.2  0.57  8.24     0  0        1
+ 9     9  1.52  14.0  3.58  1.37  72.1  0.56  8.3      0  0        1
+10    10  1.52  13    3.6   1.36  73.0  0.57  8.4      0  0.11     1
+# ℹ 204 more rows
+# ℹ 1 more variable: Type_of_glass &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="continue-chain-keep-fe-0.2-and-type-is-tableware-or-headlamps" class="level4">
+<h4 class="anchored" data-anchor-id="continue-chain-keep-fe-0.2-and-type-is-tableware-or-headlamps">Continue chain: keep Fe &lt; 0.2 and Type is tableware or headlamps</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>glass_filtered <span class="ot">&lt;-</span> glass_labeled <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    Fe <span class="sc">&lt;</span> <span class="fl">0.2</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    Type_of_glass <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"tableware"</span>, <span class="st">"headlamps"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>glass_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38 × 12
+      Id    RI    Na    Mg    Al    Si     K    Ca    Ba    Fe  Type
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1   177  1.52  14    2.39  1.56  72.4  0     9.57  0        0     6
+ 2   178  1.52  13.8  2.41  1.19  72.8  0     9.77  0        0     6
+ 3   179  1.52  14.5  2.24  1.62  72.4  0     9.26  0        0     6
+ 4   180  1.52  14.1  2.19  1.66  72.7  0     9.32  0        0     6
+ 5   181  1.51  14.4  1.74  1.54  74.6  0     7.59  0        0     6
+ 6   182  1.52  15.0  0.78  1.74  72.5  0     9.95  0        0     6
+ 7   183  1.52  14.2  0     2.09  72.7  0    10.9   0        0     6
+ 8   184  1.52  14.6  0     0.56  73.5  0    11.2   0        0     6
+ 9   185  1.51  17.4  0     0.34  75.4  0     6.65  0        0     6
+10   186  1.51  13.7  3.2   1.81  72.8  1.76  5.43  1.19     0     7
+# ℹ 28 more rows
+# ℹ 1 more variable: Type_of_glass &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="yeast-data" class="level2">
+<h2 class="anchored" data-anchor-id="yeast-data">Yeast data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>yeast_colnames <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"seq_name"</span>,<span class="st">"mcg"</span>,<span class="st">"gvh"</span>,<span class="st">"alm"</span>,<span class="st">"mit"</span>,<span class="st">"erl"</span>,<span class="st">"pox"</span>,<span class="st">"vac"</span>,<span class="st">"nuc"</span>,<span class="st">"class"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="read-add-column-names-and-print-tibble-1" class="level4">
+<h4 class="anchored" data-anchor-id="read-add-column-names-and-print-tibble-1">Read, add column names, and print tibble</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>yeast <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_table</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www4.stat.ncsu.edu/~online/datasets/yeast.data"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> yeast_colnames</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  seq_name = col_character(),
+  mcg = col_double(),
+  gvh = col_double(),
+  alm = col_double(),
+  mit = col_double(),
+  erl = col_double(),
+  pox = col_double(),
+  vac = col_double(),
+  nuc = col_double(),
+  class = col_character()
+)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>yeast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,484 × 10
+   seq_name     mcg   gvh   alm   mit   erl   pox   vac   nuc class
+   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+ 1 ADT1_YEAST  0.58  0.61  0.47  0.13   0.5   0    0.48  0.22 MIT  
+ 2 ADT2_YEAST  0.43  0.67  0.48  0.27   0.5   0    0.53  0.22 MIT  
+ 3 ADT3_YEAST  0.64  0.62  0.49  0.15   0.5   0    0.53  0.22 MIT  
+ 4 AAR2_YEAST  0.58  0.44  0.57  0.13   0.5   0    0.54  0.22 NUC  
+ 5 AATM_YEAST  0.42  0.44  0.48  0.54   0.5   0    0.48  0.22 MIT  
+ 6 AATC_YEAST  0.51  0.4   0.56  0.17   0.5   0.5  0.49  0.22 CYT  
+ 7 ABC1_YEAST  0.5   0.54  0.48  0.65   0.5   0    0.53  0.22 MIT  
+ 8 BAF1_YEAST  0.48  0.45  0.59  0.2    0.5   0    0.58  0.34 NUC  
+ 9 ABF2_YEAST  0.55  0.5   0.66  0.36   0.5   0    0.49  0.22 MIT  
+10 ABP1_YEAST  0.4   0.39  0.6   0.15   0.5   0    0.58  0.3  CYT  
+# ℹ 1,474 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="start-a-chain-that-removes-seq_name-and-nuc" class="level4">
+<h4 class="anchored" data-anchor-id="start-a-chain-that-removes-seq_name-and-nuc">Start a chain that removes&nbsp;<code>seq_name</code>&nbsp;and&nbsp;<code>nuc</code></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>yeast_filter <span class="ot">&lt;-</span> yeast <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>seq_name, <span class="sc">-</span>nuc)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>yeast_filter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,484 × 8
+     mcg   gvh   alm   mit   erl   pox   vac class
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+ 1  0.58  0.61  0.47  0.13   0.5   0    0.48 MIT  
+ 2  0.43  0.67  0.48  0.27   0.5   0    0.53 MIT  
+ 3  0.64  0.62  0.49  0.15   0.5   0    0.53 MIT  
+ 4  0.58  0.44  0.57  0.13   0.5   0    0.54 NUC  
+ 5  0.42  0.44  0.48  0.54   0.5   0    0.48 MIT  
+ 6  0.51  0.4   0.56  0.17   0.5   0.5  0.49 CYT  
+ 7  0.5   0.54  0.48  0.65   0.5   0    0.53 MIT  
+ 8  0.48  0.45  0.59  0.2    0.5   0    0.58 NUC  
+ 9  0.55  0.5   0.66  0.36   0.5   0    0.49 MIT  
+10  0.4   0.39  0.6   0.15   0.5   0    0.58 CYT  
+# ℹ 1,474 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="continue-chain-grouped-means-medians-for-numeric-vars-by-class" class="level4">
+<h4 class="anchored" data-anchor-id="continue-chain-grouped-means-medians-for-numeric-vars-by-class">Continue chain: grouped means &amp; medians for numeric vars by&nbsp;<code>class</code></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>yeast_filer_data <span class="ot">&lt;-</span> yeast <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(seq_name, nuc)) <span class="sc">|&gt;</span>                    </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">|&gt;</span>                              </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">c</span>(mcg, gvh, alm, mit, erl, pox, vac), </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">median =</span> <span class="sc">~</span> <span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="print-data" class="level4">
+<h4 class="anchored" data-anchor-id="print-data">Print Data</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(yeast_filer_data, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">mcg</th>
+<th style="text-align: right;">gvh</th>
+<th style="text-align: right;">alm</th>
+<th style="text-align: right;">mit</th>
+<th style="text-align: right;">erl</th>
+<th style="text-align: right;">pox</th>
+<th style="text-align: right;">vac</th>
+<th style="text-align: left;">class</th>
+<th style="text-align: right;">mcg_mean</th>
+<th style="text-align: right;">mcg_median</th>
+<th style="text-align: right;">gvh_mean</th>
+<th style="text-align: right;">gvh_median</th>
+<th style="text-align: right;">alm_mean</th>
+<th style="text-align: right;">alm_median</th>
+<th style="text-align: right;">mit_mean</th>
+<th style="text-align: right;">mit_median</th>
+<th style="text-align: right;">erl_mean</th>
+<th style="text-align: right;">erl_median</th>
+<th style="text-align: right;">pox_mean</th>
+<th style="text-align: right;">pox_median</th>
+<th style="text-align: right;">vac_mean</th>
+<th style="text-align: right;">vac_median</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: left;">CYT</td>
+<td style="text-align: right;">0.4807127</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.4695032</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5354212</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2271058</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.5043197</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0010799</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4993952</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: left;">CYT</td>
+<td style="text-align: right;">0.4807127</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.4695032</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5354212</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2271058</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.5043197</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0010799</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4993952</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">CYT</td>
+<td style="text-align: right;">0.4807127</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.4695032</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5354212</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2271058</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.5043197</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0010799</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4993952</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: left;">MIT</td>
+<td style="text-align: right;">0.5214344</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.5332377</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.5173770</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.4044262</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0088525</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5016803</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: left;">CYT</td>
+<td style="text-align: right;">0.4807127</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.4695032</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5354212</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2271058</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.5043197</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0010799</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4993952</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: left;">CYT</td>
+<td style="text-align: right;">0.4807127</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.4695032</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5354212</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2271058</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.5043197</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0010799</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4993952</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: left;">NUC</td>
+<td style="text-align: right;">0.4524476</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.4561305</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.5293240</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.2283450</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.5034965</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.4941026</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

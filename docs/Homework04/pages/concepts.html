@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Saurabh Gupta">
-<meta name="dcterms.date" content="2025-09-14">
+<meta name="dcterms.date" content="2025-09-17">
 
 <title>Conceptual Questions – ST 558 Assignments &amp; Projects</title>
 <style>
@@ -297,8 +297,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-1-conceptual-questions" id="toc-task-1-conceptual-questions" class="nav-link active" data-scroll-target="#task-1-conceptual-questions">Task 1: Conceptual Questions</a>
+  <ul class="collapse">
+  <li><a href="#if-your-working-directory-is-myfolderhomework-what-relative-path-would-you-specify-to-get-the-file-located-at-myfoldermydata.csv" id="toc-if-your-working-directory-is-myfolderhomework-what-relative-path-would-you-specify-to-get-the-file-located-at-myfoldermydata.csv" class="nav-link" data-scroll-target="#if-your-working-directory-is-myfolderhomework-what-relative-path-would-you-specify-to-get-the-file-located-at-myfoldermydata.csv">1. If your working directory is <code>myfolder/homework/</code>, what relative path would you specify to get the file located at <code>myfolder/MyData.csv</code>?</a></li>
+  <li><a href="#what-are-the-major-benefits-of-using-r-projects" id="toc-what-are-the-major-benefits-of-using-r-projects" class="nav-link" data-scroll-target="#what-are-the-major-benefits-of-using-r-projects">2. What are the major benefits of using R projects?</a></li>
+  <li><a href="#what-is-git-and-what-is-github" id="toc-what-is-git-and-what-is-github" class="nav-link" data-scroll-target="#what-is-git-and-what-is-github">3. What is git and what is github?</a></li>
+  <li><a href="#what-are-the-two-main-differences-between-a-tibble-and-a-data.frame" id="toc-what-are-the-two-main-differences-between-a-tibble-and-a-data.frame" class="nav-link" data-scroll-target="#what-are-the-two-main-differences-between-a-tibble-and-a-data.frame">4. What are the two main differences between a tibble and a data.frame?</a></li>
+  <li><a href="#rewrite-the-following-nested-function-call-using-basers-chaining-operator" id="toc-rewrite-the-following-nested-function-call-using-basers-chaining-operator" class="nav-link" data-scroll-target="#rewrite-the-following-nested-function-call-using-basers-chaining-operator">5. Rewrite the following nested function call using BaseR’s chaining operator</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -322,7 +336,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-09-14</p>
+      <p class="date">2025-09-17</p>
     </div>
   </div>
   
@@ -334,9 +348,50 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Answers go here!</p>
+<section id="task-1-conceptual-questions" class="level1">
+<h1>Task 1: Conceptual Questions</h1>
+<section id="if-your-working-directory-is-myfolderhomework-what-relative-path-would-you-specify-to-get-the-file-located-at-myfoldermydata.csv" class="level3">
+<h3 class="anchored" data-anchor-id="if-your-working-directory-is-myfolderhomework-what-relative-path-would-you-specify-to-get-the-file-located-at-myfoldermydata.csv">1. If your working directory is <code>myfolder/homework/</code>, what relative path would you specify to get the file located at <code>myfolder/MyData.csv</code>?</h3>
+<p>If your working directory is: myfolder/homework/</p>
+<p>and the file is in: myfolder/MyData.csv</p>
+<p>then we go up one directory (from homework/ back to myfolder/) and then specify the file name. ../MyData.csv</p>
+<hr>
+</section>
+<section id="what-are-the-major-benefits-of-using-r-projects" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-the-major-benefits-of-using-r-projects">2. What are the major benefits of using R projects?</h3>
+<p>R is really good for data analysis and machine learning since it has a ton of packages that make cleaning and organizing messy data much easier. The biggest advantage of using R projects is reproducibility. If we set up work in an RStudio project, then we can share your code and others can run it right away without messing around with file paths. It also helps keep things organized because each project has its own working directory, history, and files.</p>
+<hr>
+</section>
+<section id="what-is-git-and-what-is-github" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-git-and-what-is-github">3. What is git and what is github?</h3>
+<p><strong>Git</strong> is a version control tool I use to track changes in my code. It keeps a full history so I can go back if I mess something up, and it lets me create branches to try new things without breaking the main project. It’s also great for working with other people since everyone can work on their own part and then merge it together.</p>
+<p><strong>GitHub</strong> is basically the online home for Git projects. I can upload my repos there, share them with others, and work as a team. It has extra features like pull requests for reviewing code, issues for tracking bugs, and even project boards to stay organized.</p>
+<p><strong>Git features:</strong>&nbsp;tracks changes, branching and merging, rollback, easy collaboration.<br>
+<strong>GitHub features:</strong>&nbsp;online repo hosting, pull requests, CI/CD integration.</p>
+<p>Overall, Git is the tool that does the version control, and GitHub is the platform that makes it simple to store, share, and collaborate on projects.</p>
+<hr>
+</section>
+<section id="what-are-the-two-main-differences-between-a-tibble-and-a-data.frame" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-the-two-main-differences-between-a-tibble-and-a-data.frame">4. What are the two main differences between a tibble and a data.frame?</h3>
+<p>1- A tibble is like an improved data.frame, and there are a few key differences.<br>
+2- The big three are printing, subsetting, and recycling rules. Printing in tibbles is cleaner since it only shows the first 10 rows, while data.frames try to print everything.<br>
+If I grab one column from a tibble, it stays a tibble, but with a data.frame it just turns into a vector.<br>
+3- For recycling, if I add a new column in a tibble, I have to give the full column, but a data.frame will recycle the values.<br>
+4- There are a few other smaller differences like reading with read.csv() gives a data.frame but read_csv() from tidyverse gives a tibble.<br>
+5- Tibbles don’t allow partial column name matching (data.frames do)<br>
+And tibbles keep variable types as it is while data.frames sometimes turn strings into factors.</p>
+<hr>
+</section>
+<section id="rewrite-the-following-nested-function-call-using-basers-chaining-operator" class="level3">
+<h3 class="anchored" data-anchor-id="rewrite-the-following-nested-function-call-using-basers-chaining-operator">5. Rewrite the following nested function call using BaseR’s chaining operator</h3>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<p>as_tibble(iris) |&gt; select(starts_with(“Petal”), Species) |&gt; filter(Petal.Length &lt; 1.55) |&gt; arrange(Species)</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -5,5 +5,122 @@ format: html
 editor: visual
 ---
 
+# Task 2 Reading Delimited Data
 
-Answers go here!
+#### Load the libraries
+
+```{r}
+library(tidyverse)
+
+```
+
+```{r}
+glass_colnames <- c(
+  "Id","RI","Na","Mg","Al","Si","K","Ca","Ba","Fe","Type"
+)
+```
+
+#### Read, add column names, and print tibble
+
+```{r}
+glass <- readr::read_csv(
+  "https://www4.stat.ncsu.edu/~online/datasets/glass.data",
+  col_names = glass_colnames,
+  show_col_types = FALSE
+)
+
+glass
+```
+
+#### Start a chain to overwrite `Type` with meaningful labels
+
+```{r}
+glass_labeled <- glass %>%
+  mutate(
+    Type_of_glass = case_when(
+      Type == 1 ~ "building_windows_float_processed",
+      Type == 2 ~ "building_windows_non_float_processed",
+      Type == 3 ~ "vehicle_windows_float_processed",
+      Type == 4 ~ "vehicle_windows_non_float_processed",  # none in this db
+      Type == 5 ~ "containers",
+      Type == 6 ~ "tableware",
+      Type == 7 ~ "headlamps",
+      TRUE ~ NA_character_
+    )
+  )
+
+glass_labeled
+
+```
+
+#### Continue chain: keep Fe \< 0.2 and Type is tableware or headlamps
+
+```{r}
+glass_filtered <- glass_labeled %>%
+  filter(
+    Fe < 0.2,
+    Type_of_glass %in% c("tableware", "headlamps")
+  )
+
+glass_filtered
+
+```
+
+## Yeast data
+
+```{r}
+yeast_colnames <- c(
+  "seq_name","mcg","gvh","alm","mit","erl","pox","vac","nuc","class"
+)
+```
+
+#### Read, add column names, and print tibble
+
+```{r}
+yeast <- readr::read_table(
+  "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+  col_names = yeast_colnames
+)
+
+yeast
+```
+
+#### Start a chain that removes `seq_name` and `nuc`
+
+```{r}
+yeast_filter <- yeast %>%
+  select(-seq_name, -nuc)
+
+yeast_filter
+
+```
+
+#### Continue chain: grouped means & medians for numeric vars by `class`
+
+```{r}
+yeast_filer_data <- yeast |>
+  select(-c(seq_name, nuc)) |>                    
+  group_by(class) |>                              
+  mutate(
+    across(
+      .cols = c(mcg, gvh, alm, mit, erl, pox, vac), 
+      .fns  = list(mean = ~ mean(.x, na.rm = TRUE),
+                   median = ~ median(.x, na.rm = TRUE)),
+      .names = "{.col}_{.fn}"
+    )
+  ) |>
+  ungroup()
+
+
+
+
+
+```
+
+#### Print Data
+
+```{r}
+
+knitr::kable(head(yeast_filer_data, 20))
+
+```

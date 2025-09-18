@@ -5,4 +5,148 @@ format: html
 editor: visual
 ---
 
-Answers go here!
+# Task 3 Combining Data
+
+#### Load the libraries
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+#### Set the path
+
+```{r}
+# Set paths 
+path_white_wine <- "white-wine.xlsx" 
+url_white_wine  <- "https://www4.stat.ncsu.edu/~online/datasets/white-wine.xlsx"
+
+
+if (!file.exists(path_white_wine)) {
+  download.file(url_white_wine, destfile = path_white_wine, mode = "wb")
+}
+```
+
+#### Import white wine (Excel, sheet 1) and print tibble
+
+```{r}
+# Read data from the first sheet
+white_wine <- readxl::read_excel(path_white_wine, sheet = 1)
+
+white_wine
+
+```
+
+#### Read alternative names from sheet 2 and overwrite column names
+
+```{r}
+# Read data from second sheet
+alternate_names_df <- readxl::read_excel(path_white_wine, sheet = 2)
+
+# Get the first column as a character vector of names
+alternate_names <- alternate_names_df[[1]] %>% as.character()
+
+# Overwrite the column names of the white wine
+colnames(white_wine) <- alternate_names
+
+white_wine
+
+  
+```
+
+#### Add a column indicating wine type = "white"
+
+```{r}
+white_wine <- white_wine %>%
+  mutate(type = "white")
+
+white_wine
+
+```
+
+#### Read red wine (semicolon-delimited CSV), replace variable names, add `type = "red"`
+
+```{r}
+# Read the semicolon delimited file from the URL
+red_wine <- readr::read_delim(
+  "https://www4.stat.ncsu.edu/~online/datasets/red-wine.csv",
+  delim = ";",
+  show_col_types = FALSE,
+  trim_ws = TRUE
+)
+
+# Use the same alternative names as before 
+colnames(red_wine) <- alternate_names
+
+# Add type column
+red_wine <- red_wine %>%
+  mutate(type = "red")
+
+
+
+```
+
+#### Check data
+
+```{r}
+red_wine
+```
+
+#### Combine white + red using `dplyr::bind_rows()`
+
+```{r}
+wine_all_data <- dplyr::bind_rows(white_wine, red_wine)
+
+wine_all_data
+
+```
+
+#### Filter: high-quality wines (quality \> 6.5) and reasonable alcohol (alcohol \< 132)
+
+```{r}
+wine_filtered <- wine_all_data %>%
+  filter(quality > 6.5, alcohol < 132)
+
+wine_filtered
+
+```
+
+#### Sort from highest quality to lowest
+
+```{r}
+wine_sorted <- wine_filtered %>%
+  arrange(desc(quality))
+
+wine_sorted
+
+```
+
+#### Keep only variables containing "acid", plus alcohol, type, and quality
+
+```{r}
+wine_selected <- wine_sorted %>%
+  select(contains("acid"), alcohol, type, quality)
+
+wine_selected
+
+```
+
+#### Add mean and sd of alcohol for each level of `quality`
+
+```{r}
+wine_final_df <- wine_selected %>%
+  group_by(quality) %>%
+  mutate(
+    mean_alcohol = mean(alcohol, na.rm = TRUE),
+    sd_alcohol   = sd(alcohol, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+
+
+```
+
+```{r}
+
+knitr::kable(head(wine_final_df, 20))
+```

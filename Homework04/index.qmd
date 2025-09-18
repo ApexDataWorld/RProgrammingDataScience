@@ -1,10 +1,12 @@
 ---
-title: "index"
+title: "Index"
 author: "Saurabh Gupta"
 format: html
 editor: visual
 ---
 
-An example pages site with multiple pages and a table of contents.
+Quick links to the parts:
 
-This could be a landing page for the site. Feel free to put whatever here!
+-   [Concepts](pages/concepts.qmd)
+-   [Reading Delimited Data](pages/read_delimited.qmd)
+-   [Combining Excel & Delimited Data](pages/combining.qmd)
