@@ -1,0 +1,21 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+EDA of the UCI **Student Performance** datasets.
+
+**Pages:** -
+
+01 – [Read & Merge](pages/read_merge.qmd)
+
+02 – [Joins & Factors](pages/joins_factors.qmd)
+
+03 – [Categorical Tables](pages/categorical_tables.qmd)
+
+04 – [Numeric Summaries](pages/summary.qmd)
+
+05 – [Distribution Plots](pages/distribution_plots.qmd)
+
+06 – [Scatter Plots](pages/scatter_plots.qmd)

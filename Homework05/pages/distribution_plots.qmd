@@ -1,0 +1,139 @@
+---
+title: "distribution_plots"
+format: html
+editor: visual
+---
+
+Load tidyverse. Read in the combined dataset
+
+```{r}
+library(tidyverse)
+combine_data <- read_rds("../student/combined_data.rds")
+```
+
+Create histogram of age by sex
+
+```{r}
+
+# Histogram
+hist_age <- ggplot(combine_data, aes(x = age, fill = sex)) +
+  geom_histogram(position = "dodge", alpha = 0.6, binwidth = 1) +
+  labs(
+    title = "Histogram of Age by Sex",
+    x = "Age",
+    y = "Count",
+    fill = "Sex"
+  ) +
+  theme_minimal()
+hist_age
+
+```
+
+Most students are between ages **15–18** for both males and females.\
+Both groups have a similar age pattern, with slightly more **female students** overall.\
+This shows a balanced gender distribution in the dataset.
+
+Create histogram of age by school
+
+```{r}
+# Density: Age by School with Failures linetype
+histogram_plot <- ggplot(combine_data, aes(x = age, fill = school)) +
+  geom_histogram(binwidth = 1, color = "black", position = "dodge") +
+  labs(
+    title = "Histogram of Age by School",
+    x = "Age",
+    y = "Count",
+    fill = "School"
+  ) +
+  theme_minimal()
+
+histogram_plot
+
+```
+
+The **Gabriel Pereira** school has more students than **Mousinho da Silveira**.\
+Both schools have a similar age distribution, centered around **16–17 years**.\
+This suggests both schools serve similar student age groups.
+
+Create kernel density plot of age by school and failures
+
+```{r}
+# kernel density plot
+
+school_kernel_plot <- ggplot(combine_data, aes(x = age, color = school, linetype = as.factor(failures))) +
+  geom_density(alpha = 0.5, aes(fill = as.factor(failures))) +
+  theme_minimal() +
+  labs(
+    title = "Kernel Density Plot of Age by school and Failures",
+    x = "Age",
+    y = "Density",
+    color = "school",
+    linetype = "Number of Failures",
+    fill = "Number of Failures"
+  )
+
+school_kernel_plot
+```
+
+Most students have **zero or very few academic failures**.\
+The largest peak is among younger students (around 16–17 years).\
+Older students show more failures, especially in **Mousinho da Silveira**.
+
+Create kernel density plot of age by address and failures
+
+```{r}
+# Kernel Density Plot
+kernel_plot <- ggplot(combine_data, aes(x = age, color = address, linetype = as.factor(failures))) +
+  geom_density(alpha = 0.5, aes(fill = as.factor(failures))) +
+  theme_minimal() +
+  labs(
+    title = "Kernel Density Plot of Age by Reason and Failures",
+    x = "Age",
+    y = "Density",
+    color = "address",
+    linetype = "Number of Failures",
+    fill = "Number of Failures"
+  )
+
+kernel_plot
+```
+
+Urban students form most of the population, while rural students are fewer.\
+Students with **no failures** dominate across both groups.\
+This shows that **location doesn’t strongly affect** failure rate, but rural numbers are smaller.
+
+Create boxplot of age by school with jittered points
+
+```{r}
+# boxplot
+school_boxplot <- ggplot(combine_data) +
+  geom_boxplot(aes(x = school, y = age, fill = school)) +
+  geom_jitter(aes(x = school, y = age), width = 0.1, alpha = 0.3) + 
+  labs(
+    title = "Age Distribution by School",
+    x = "School",
+    y = "Age",
+    fill = "School"
+  ) +
+  theme_minimal()
+
+school_boxplot
+```
+
+The median age is similar between schools (around 16–17).\
+There are some **outliers**, likely older students.\
+Gabriel Pereira shows a slightly **wider range** of ages than Mousinho da Silveira.
+
+Create boxplot of absences by reason
+
+```{r}
+# Boxplot
+reason_boxplot <- ggplot(combine_data) +
+ geom_boxplot(aes(x = reason, y = absences.x, fill = reason))
+ 
+reason_boxplot 
+```
+
+Most students have **low absences** regardless of reason.\
+A few students show high absences, seen as outliers.\
+The **“Course” and “Home”** reasons have the widest spread, meaning more variation.

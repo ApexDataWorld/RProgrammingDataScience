@@ -1,0 +1,115 @@
+---
+title: "summary"
+format: html
+editor: visual
+---
+
+Load tidyverse and Read in the combined dataset saved earlier
+
+```{r}
+library(tidyverse)
+combine_data <- read_rds("../student/combined_data.rds")
+```
+
+Calculate mean, median, standard deviation, and IQR for key numeric variables. Reshape summary statistics into long format for easier viewing.
+
+```{r}
+# Measure of center
+meas_of_center <- combine_data |>
+  summarize(across(c("age","absences.x","absences.y","G3.x", "G3.y"),
+                  list("Mean" = mean, "Median" = median, "Std" = sd, "IQR" = IQR ),
+                  .names = "{.col}_{.fn}"))
+
+meas_of_center_long <- meas_of_center |>
+  pivot_longer(cols = everything(),
+               names_to = c("Feature", "Statistic"),
+                            names_sep = "_",
+               values_to = "value")
+
+# View the result in long format
+head(meas_of_center_long)
+meas_of_center_long
+```
+
+Calculate summary statistics only for Male students and convert male subset summary to long format
+
+```{r}
+subset_sex_statistics <- combine_data |>
+  filter(sex=="Male") |>
+  summarize(across(c("age","absences.x","absences.y","G3.x", "G3.y"),
+                  list("Mean" = mean, "Median" = median, "Std" = sd, "IQR" = IQR ),
+                  .names = "{.col}_{.fn}"))
+
+subset_meas_of_center_long <- subset_sex_statistics |>
+  pivot_longer(cols = everything(),
+               names_to = c("Feature", "Statistic"),
+                            names_sep = "_",
+               values_to = "value")
+#View(subset_meas_of_center_long)
+head(subset_meas_of_center_long)
+
+```
+
+Calculate summary statistics only for Gabriel Pereira school. Convert Gabriel Pereira subset summary to long format.
+
+```{r}
+subset_school_statistics <- combine_data |>
+  filter(school=="Gabriel Pereira") |>
+  summarize(across(c("age","absences.x","absences.y","G3.x", "G3.y"),
+                  list("Mean" = mean, "Median" = median, "Std" = sd, "IQR" = IQR ),
+                  .names = "{.col}_{.fn}"))
+
+subset_school_meas_of_center_long <- subset_school_statistics |>
+  pivot_longer(cols = everything(),
+               names_to = c("Feature", "Statistic"),
+                            names_sep = "_",
+               values_to = "value")
+head(subset_school_meas_of_center_long)
+
+
+```
+
+Group by school and summarize numeric variables
+
+```{r}
+subset_school_statistics <- combine_data |>
+  group_by(school) |>
+  summarize(across(c("age","absences.x","absences.y","G3.x", "G3.y"),
+                  list("Mean" = mean, "Median" = median, "Std" = sd, "IQR" = IQR ),
+                  .names = "{.col}_{.fn}"))
+
+subset_school_meas_of_center_long <- subset_school_statistics |>
+  pivot_longer(cols = -school,
+               names_to = c("Feature", "Statistic"),
+                            names_sep = "_",
+               values_to = "value")
+head(subset_school_meas_of_center_long)
+
+```
+
+Group by both school and sex and summarize numeric variables. Convert school and sex grouped summary to long format.
+
+```{r}
+school_sex_statistics <- combine_data |>
+  group_by(school, sex) |>
+  summarize(across(c("age","absences.x","absences.y","G3.x", "G3.y"),
+                  list("Mean" = mean, "Median" = median, "Std" = sd, "IQR" = IQR ),
+                  .names = "{.col}_{.fn}"))
+
+school_sex_meas_of_center_long <- school_sex_statistics |>
+  pivot_longer(cols = -c("school","sex"),
+               names_to = c("Feature", "Statistic"),
+                            names_sep = "_",
+               values_to = "value")
+head(school_sex_meas_of_center_long)
+
+```
+
+Select only numeric columns to create a correlation matrix
+
+```{r}
+corr_mat <- combine_data |>
+  select(where(is.numeric))
+
+cor(corr_mat)
+```

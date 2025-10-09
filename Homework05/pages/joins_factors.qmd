@@ -1,0 +1,68 @@
+---
+title: "joins_factors"
+format: html
+editor: visual
+---
+
+Load tidyverse
+
+```{r}
+library(tidyverse)
+```
+
+Read both math and Portuguese datasets from local CSV files
+
+```{r}
+# Read combined data from previous output if needed
+math_data <- read_delim("../student/student-mat.csv", delim = ";", show_col_types = FALSE)
+por_data  <- read_delim("../student/student-por.csv", delim = ";", show_col_types = FALSE)
+
+```
+
+Exclude grade and absence columns before joining
+
+Get list of common columns to join on
+
+```{r}
+# Convert four categorical variables to factors
+exclude   <- c("G1","G2","G3","paid","absences")
+join_keys <- setdiff(names(math_data), exclude)
+
+```
+
+Join the two datasets and convert four categorical variables to factors
+
+```{r}
+combine_data <- inner_join(math_data, por_data,
+                           by = join_keys,
+                           relationship = "many-to-many") |>
+  mutate(
+    school  = factor(school, levels = c("GP","MS"),
+                     labels = c("Gabriel Pereira","Mousinho da Silveira")),
+    sex     = factor(sex, levels = c("F","M"),
+                     labels = c("Female","Male")),
+    address = factor(address, levels = c("U","R"),
+                     labels = c("Urban","Rural")),
+    reason  = factor(reason, levels = c("home","reputation","course","other"),
+                     labels = c("Home","Reputation","Course","Other"))
+  )
+
+```
+
+Show structure of the converted factor variables
+
+```{r}
+str(combine_data[, c("school","sex","address","reason")])
+```
+
+Save the combined dataset as an RDS file for reuse
+
+```{r}
+write_rds(combine_data, "../student/combined_data.rds")
+```
+
+Print confirmation message
+
+```{r}
+print("Data export completed")
+```

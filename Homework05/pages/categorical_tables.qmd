@@ -1,0 +1,73 @@
+---
+title: "categorical_tables"
+format: html
+editor: visual
+---
+
+## Running Code
+
+Load tidyverse for data handling
+
+Read in the combined data file
+
+```{r}
+library(tidyverse)
+combine_data <- read_rds("../student/combined_data.rds")
+```
+
+Create a one-way table for sex
+
+```{r}
+# One-way
+one_way_sex <- table(combine_data$sex, useNA = "ifany"); 
+one_way_sex
+
+```
+
+Create a two-way table for sex and school
+
+```{r}
+# Two-way
+sex_by_school <- table(combine_data$sex, combine_data$school); 
+sex_by_school
+
+```
+
+Create a three-way table for school, address, and reason
+
+```{r}
+# Three-way
+school_addr_reason <- table(combine_data$school, combine_data$address, combine_data$reason)
+school_addr_reason[, , "Course"]
+
+```
+
+Filter data for students who live in urban areas. Make a two-way table for sex and school using the filtered urban data
+
+```{r}
+# Conditional via filtering
+urban <- dplyr::filter(combine_data, address == "Urban")
+table(urban$sex, urban$school)
+
+```
+
+Create a three-way table and slice it to show the "Home" reason only
+
+```{r}
+# Conditional via slicing a 3-way table
+three_way <- table(combine_data$reason, combine_data$school, combine_data$sex)
+three_way["Home", , ]
+
+```
+
+Use dplyr to count combinations of address and school
+
+Then reshape it wide like a contingency table
+
+```{r}
+# dplyr + pivot_wider as contingency
+combine_data |>
+group_by(address, school) |>
+summarize(n = n(), .groups = "drop") |>
+tidyr::pivot_wider(names_from = address, values_from = n)
+```

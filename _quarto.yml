@@ -28,6 +28,8 @@ website:
             href: Homework04/index.qmd
           - text: Homework 05
             href: Homework05/index.qmd
+          - text: Homework 06
+            href: Homework06/index.qmd  
       - text: Project
         menu:
           - text: MidTerm Project 1
@@ -63,7 +65,16 @@ website:
       - section: "Homework 5"
         href: Homework05/index.qmd
         contents:
-          - Homework05/pages/concepts.qmd
+          - Homework05/pages/read_merge.qmd
+          - Homework05/pages/joins_factors.qmd
+          - Homework05/pages/categorical_tables.qmd
+          - Homework05/pages/summary.qmd
+          - Homework05/pages/distribution_plots.qmd
+          - Homework05/pages/scatter_plots.qmd
+      - section: "Homework 6"
+        href: Homework06/index.qmd
+        contents:
+          - Homework06/pages/concepts.qmd    
       - section: "Projects"
         contents:
           - MidTermProject1/index.qmd

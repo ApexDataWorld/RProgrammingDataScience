@@ -1,0 +1,54 @@
+---
+title: "read_merge"
+format: html
+editor: visual
+---
+
+## Running Code
+
+Load libraries
+
+```{r}
+library(tidyverse)
+library(readr)
+library(ggplot2)
+```
+
+Read the math dataset from local CSV file
+
+Read the Portuguese dataset from local CSV file
+
+```{r}
+
+math_data <- read_delim("../student/student-mat.csv", delim = ";", show_col_types = FALSE)
+por_data  <- read_delim("../student/student-por.csv", delim = ";", show_col_types = FALSE)
+
+
+```
+
+Exclude grade and absence columns before joining
+
+Get list of common columns to join on
+
+```{r}
+exclude   <- c("G1","G2","G3","paid","absences")
+join_keys <- setdiff(names(math_data), exclude)
+
+
+```
+
+Combine both datasets using inner join on common columns
+
+```{r}
+combine_data <- inner_join(math_data, por_data,
+                           by = join_keys,
+                           relationship = "many-to-many")
+
+```
+
+Show first few rows of the combined dataset
+
+```{r}
+head(combine_data)
+print(paste("Rows in combined dataset:", nrow(combine_data)))
+```

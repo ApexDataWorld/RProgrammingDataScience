@@ -1,0 +1,116 @@
+---
+title: "scatter_plots"
+format: html
+editor: visual
+---
+
+Load tidyverse. Read in the combined dataset
+
+```{r}
+library(tidyverse)
+combine_data <- read_rds("../student/combined_data.rds")
+```
+
+Scatter plot of Age vs Final Math Grade (G3.x) colored by Sex
+
+```{r}
+# G3_math vs Age colored by Sex
+#numeric_scatter <- ggplot(combine_data) |>
+#  aes(x = age, y = G3, color = sex)
+#numeric_scatter + geom_point()
+numeric_scatter <- ggplot(combine_data, aes(x = age, y = G3.x, color = sex)) +
+  geom_point() +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  labs(title = "Scatter Plot of Age vs G3.x by Sex",
+       x = "Age",
+       y = "Final Grade(G3)")
+numeric_scatter
+
+```
+
+Younger students tend to score **slightly higher** than older ones.\
+Grades vary within both sexes, but **females perform a bit better** overall.\
+There’s no clear strong correlation between age and grade.
+
+Scatter plot of Absences vs Final Math Grade (G3.x) colored by Sex
+
+```{r}
+# G3_math vs Absences_math colored by School
+numeric_scatter_absence <- ggplot(combine_data, aes(x = absences.x, y = G3.x, color = sex)) +
+  geom_point() +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  labs(title = "Scatter Plot of Absences vs G3.x by Sex",
+       x = "Absences",
+       y = "Final Grade(G3)")
+numeric_scatter_absence
+```
+
+Grades **decrease** as absences increase for both sexes.\
+Students with perfect or near-perfect attendance score the highest.\
+This shows that **attendance strongly affects final grades**.
+
+Scatter plot of Age vs G3.x faceted by School
+
+```{r}
+# Facet by School
+numeric_scatter_facet <- ggplot(combine_data, aes(x = age, y = G3.x, color = sex)) +
+  geom_point() +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  facet_wrap(~ school) +  
+  labs(title = "Scatter Plot of Age vs G3.x by Sex, Faceted by School",
+    x = "Age",
+    y = "Final Grade (G3)",
+    color = "Sex"
+  ) +
+  theme_light()
+
+numeric_scatter_facet
+
+```
+
+Both schools show similar age-grade trends.\
+Students at **Gabriel Pereira** perform slightly better overall.\
+Older students tend to have **lower G3 grades** in both schools.
+
+Scatter plot of Absences vs G3.x faceted by Address
+
+```{r}
+# Facet by School × Address
+numeric_scatter_absence_facet <- ggplot(combine_data, aes(x = absences.x, y = G3.x, color = sex)) +
+  geom_point() +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  facet_wrap(~ address)
+  labs(title = "Scatter Plot of Absences vs G3.x by Address",
+       x = "Absences",
+       y = "Final Grade(G3)") +
+    theme_classic()
+numeric_scatter_absence_facet
+```
+
+Urban and rural students both show the same pattern —\
+More absences lead to lower grades.\
+Urban students dominate the sample, with slightly **less grade drop** for absences.
+
+Scatter plot of Age vs G3.x faceted by both School and Sex
+
+```{r}
+categ_scatter <- ggplot(combine_data, aes(x = age, y = G3.x, color = sex)) +
+  geom_point() +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  facet_grid(school ~ sex) +  # Facet by 'school' (rows) and 'sex' (columns)
+  labs(
+    title = "Scatter Plot of Age vs G3.x by School and Sex",
+    x = "Age",
+    y = "Final Grade (G3)",
+    color = "Sex"
+  ) 
+categ_scatter
+```
+
+Across both schools, females usually score a bit higher.\
+Males show more variation in grades.\
+The pattern is consistent: **younger students and fewer absences → higher grades**.
+
+```{r}
+
+```
