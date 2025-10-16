@@ -1,0 +1,76 @@
+---
+title: "task3_purrr"
+editor: visual
+---
+
+## Task 3: Practice with purrr
+
+```{r}
+library(tidyverse)
+```
+
+1\. Fit a simple linear model
+
+```{r}
+
+
+
+lm_fit1 <- lm(Sepal.Length ~ Sepal.Width + Species, data = iris)
+summary(lm_fit1)
+
+
+
+```
+
+Pull out coefficients three ways
+
+```{r}
+lm_fit1$coefficients
+coef(lm_fit1)
+pluck(lm_fit1, "coefficients")
+```
+
+2\. Fit multiple models and store in list
+
+```{r}
+lm_fit2 <- lm(Sepal.Length~ Sepal.Width, data = iris)
+lm_fit3 <- lm(Sepal.Length~ Petal.Width + Sepal.Width + Species, data = iris)
+lm_fit4 <- lm(Sepal.Length~ Petal.Width + Petal.Length + Sepal.Width + Species,
+data = iris)
+fits <- list(lm_fit1, lm_fit2, lm_fit3, lm_fit4)
+fits
+```
+
+Use purrr::map() and pluck() to extract coefficients from each model
+
+```{r}
+coef_list <- map(fits, pluck, "coefficients")
+coef_list
+```
+
+3\. Apply confint() to each model using map()
+
+```{r}
+confint_list <- map(fits, confint)
+confint_list
+
+```
+
+4\. Plot histograms of residuals for each model
+
+```{r}
+par(mfrow = c(2, 2))
+resid_list <- map(fits, "residuals")
+walk(resid_list, hist, main = "Residuals", xlab = "Residual value", col = "blue")
+
+```
+
+5\. Add names to residual lists and use iwalk() to label plots properly
+
+```{r}
+named_resid_list <- resid_list |> set_names(c("fit1", "fit2", "fit3", "fit4"))
+
+par(mfrow = c(2, 2))
+iwalk(named_resid_list, ~hist(.x, main = paste("Residuals -", .y), xlab = "Residual value", col = "lightgreen"))
+
+```

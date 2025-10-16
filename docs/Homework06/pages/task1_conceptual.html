@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Saurabh Gupta">
-<meta name="dcterms.date" content="2025-10-06">
+<meta name="dcterms.date" content="2025-10-15">
 
-<title>Index – ST 558 Assignments &amp; Projects</title>
+<title>task1_conceptual – ST 558 Assignments &amp; Projects</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,27 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../Homework04/pages/concepts.html" rel="next">
-<link href="../Homework03/Placebo_BP_Treatment.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Homework06/pages/task2_functions.html" rel="next">
+<link href="../../Homework06/index.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -82,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">ST 558 Assignments &amp; Projects</span>
     </a>
   </div>
@@ -93,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../../index.qmd"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -102,28 +135,32 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-homework">    
         <li>
-    <a class="dropdown-item" href="../Homework01/Data_Science.html">
+    <a class="dropdown-item" href="../../Homework01/Data_Science.html">
  <span class="dropdown-text">Homework 01</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework02/BaseR_Programming.html">
+    <a class="dropdown-item" href="../../Homework02/BaseR_Programming.html">
  <span class="dropdown-text">Homework 02</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework03/Placebo_BP_Treatment.html">
+    <a class="dropdown-item" href="../../Homework03/Placebo_BP_Treatment.html">
  <span class="dropdown-text">Homework 03</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework04/index.html">
+    <a class="dropdown-item" href="../../Homework04/index.html">
  <span class="dropdown-text">Homework 04</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework05/index.html">
+    <a class="dropdown-item" href="../../Homework05/index.html">
  <span class="dropdown-text">Homework 05</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework06/index.qmd">
+    <a class="dropdown-item" href="../../Homework06/index.html">
  <span class="dropdown-text">Homework 06</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Homework07/index.qmd">
+ <span class="dropdown-text">Homework 07</span></a>
   </li>  
     </ul>
   </li>
@@ -133,15 +170,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-project">    
         <li>
-    <a class="dropdown-item" href="../MidTermProject1/index.qmd">
+    <a class="dropdown-item" href="../../MidTermProject1/index.qmd">
  <span class="dropdown-text">MidTerm Project 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../MidTermProject2/index.qmd">
+    <a class="dropdown-item" href="../../MidTermProject2/index.qmd">
  <span class="dropdown-text">MidTerm Project 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../FinalProject1/index.qmd">
+    <a class="dropdown-item" href="../../FinalProject1/index.qmd">
  <span class="dropdown-text">Final Project</span></a>
   </li>  
     </ul>
@@ -162,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Homework04/index.html">Homework 4</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Homework06/index.html">Homework 6</a></li><li class="breadcrumb-item"><a href="../../Homework06/pages/task1_conceptual.html">task1_conceptual</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,7 +221,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework01/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework01/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 1</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -193,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework01/Data_Science.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework01/Data_Science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data_Science</span></a>
   </div>
 </li>
@@ -201,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework02/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework02/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -210,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework02/BaseR_Programming.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework02/BaseR_Programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BaseR_Programming</span></a>
   </div>
 </li>
@@ -218,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework03/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework03/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 3</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -227,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework03/Placebo_BP_Treatment.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework03/Placebo_BP_Treatment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Placebo_BP_Treatment</span></a>
   </div>
 </li>
@@ -235,7 +272,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework04/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../Homework04/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 4</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -244,19 +281,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework04/pages/concepts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework04/pages/concepts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conceptual Questions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework04/pages/read_delimited.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework04/pages/read_delimited.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Delimited Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework04/pages/combining.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework04/pages/combining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Combining Excel and Delimited Data</span></a>
   </div>
 </li>
@@ -264,7 +301,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework05/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework05/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 5</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -273,31 +310,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/read_merge.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/read_merge.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">read_merge</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/categorical_tables.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/joins_factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">joins_factors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework05/pages/categorical_tables.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">categorical_tables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/summary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">summary</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/distribution_plots.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/distribution_plots.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">distribution_plots</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/scatter_plots.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/scatter_plots.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">scatter_plots</span></a>
   </div>
 </li>
@@ -305,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework06/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework06/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 6</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -313,19 +356,48 @@ ul.task-list li input[type="checkbox"] {
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">Homework06/pages/concepts.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework06/pages/task1_conceptual.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">task1_conceptual</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework06/pages/task2_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">task2_functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework06/pages/task3_purrr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">task3_purrr</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Projects</span></a>
+            <a href="../../Homework07/index.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 7</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">Homework07/pages/concepts.qmd</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
  <span class="menu-text">MidTermProject1/index.qmd</span>
   </li>
@@ -342,32 +414,39 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-1-conceptual-questions" id="toc-task-1-conceptual-questions" class="nav-link active" data-scroll-target="#task-1-conceptual-questions">Task 1: Conceptual Questions</a>
+  <ul class="collapse">
+  <li><a href="#q1.-purpose-of-lapply-and-equivalent-purrr-function" id="toc-q1.-purpose-of-lapply-and-equivalent-purrr-function" class="nav-link" data-scroll-target="#q1.-purpose-of-lapply-and-equivalent-purrr-function">Q1. Purpose of lapply() and equivalent purrr function</a></li>
+  <li><a href="#q2.-using-lapply-with-cor-method-kendall" id="toc-q2.-using-lapply-with-cor-method-kendall" class="nav-link" data-scroll-target="#q2.-using-lapply-with-cor-method-kendall">Q2. Using lapply() with cor(…, method = “kendall”)</a></li>
+  <li><a href="#q3.-advantages-of-purrr" id="toc-q3.-advantages-of-purrr" class="nav-link" data-scroll-target="#q3.-advantages-of-purrr">Q3. Advantages of purrr</a></li>
+  <li><a href="#q4.-side-effect-functions" id="toc-q4.-side-effect-functions" class="nav-link" data-scroll-target="#q4.-side-effect-functions">Q4. Side-effect functions</a></li>
+  <li><a href="#q5.-why-variable-name-sd-doesnt-cause-issue" id="toc-q5.-why-variable-name-sd-doesnt-cause-issue" class="nav-link" data-scroll-target="#q5.-why-variable-name-sd-doesnt-cause-issue">Q5. Why variable name “sd” doesn’t cause issue</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Homework06/index.html">Homework 6</a></li><li class="breadcrumb-item"><a href="../../Homework06/pages/task1_conceptual.html">task1_conceptual</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Index</h1>
+<h1 class="title">task1_conceptual</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Saurabh Gupta </p>
-          </div>
-  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-10-06</p>
+      <p class="date">2025-10-15</p>
     </div>
   </div>
   
@@ -379,14 +458,66 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Quick links to the parts:</p>
-<ul>
-<li><a href="../Homework04/pages/concepts.html">Concepts</a></li>
-<li><a href="../Homework04/pages/read_delimited.html">Reading Delimited Data</a></li>
-<li><a href="../Homework04/pages/combining.html">Combining Excel &amp; Delimited Data</a></li>
-</ul>
+<section id="task-1-conceptual-questions" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-conceptual-questions">Task 1: Conceptual Questions</h2>
+<section id="q1.-purpose-of-lapply-and-equivalent-purrr-function" class="level3">
+<h3 class="anchored" data-anchor-id="q1.-purpose-of-lapply-and-equivalent-purrr-function">Q1. Purpose of lapply() and equivalent purrr function</h3>
+<p>Answer:</p>
+<p>lapply():- Applies a function to elements in a list or a vector and returns the results in a list.The syntax of lapply is lapply(x, FUN,…) where x is a vector, FUN: the function to be applied to each element of x. purrr function:– purrr::map()– it is more consistency and some helper functions are there, it offers more control over output types and integrates well with the tidyverse.</p>
+</section>
+<section id="q2.-using-lapply-with-cor-method-kendall" class="level3">
+<h3 class="anchored" data-anchor-id="q2.-using-lapply-with-cor-method-kendall">Q2. Using lapply() with cor(…, method = “kendall”)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>list1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>,<span class="dv">57</span>,<span class="dv">27</span>,<span class="dv">89</span>,<span class="dv">25</span>,<span class="dv">44</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>list2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">34</span>,<span class="dv">23</span>,<span class="dv">567</span>,<span class="dv">45</span>,<span class="dv">67</span>,<span class="dv">26</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">data.frame</span>(list1, list2))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>cor_results <span class="ot">&lt;-</span> <span class="fu">lapply</span>(my_list, <span class="cf">function</span>(numeric_matrix) {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(numeric_matrix, <span class="at">method =</span> <span class="st">"kendall"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print the correlation results</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cor_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+           list1      list2
+list1  1.0000000 -0.3333333
+list2 -0.3333333  1.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="q3.-advantages-of-purrr" class="level3">
+<h3 class="anchored" data-anchor-id="q3.-advantages-of-purrr">Q3. Advantages of purrr</h3>
+<p>Answer:</p>
+<ol type="1">
+<li>purrr functions consistently use . as prefix to avoid inadvertently matching arguments of the purrr function, instead of the function that you’re trying to call. Base functions use a variety of techniques including upper case (e.g.&nbsp;lapply(X, FUN, …)) or require anonymous functions (e.g.&nbsp;Map()).</li>
+</ol>
+<p>All map functions are type stable: you can predict the type of the output using little information about the inputs. In contrast, the base functions sapply() and mapply() automatically simplify making the return value hard to predict.</p>
+<ol start="2" type="1">
+<li>The map functions all start with the data, followed by the function, then any additional constant argument. Most base apply functions also follow this pattern, but mapply() starts with the function, and Map() has no way to supply additional constant arguments.</li>
+</ol>
+<p>purrr functions provide all combinations of input and output variants, and include variants specifically for the common two argument case.</p>
+</section>
+<section id="q4.-side-effect-functions" class="level3">
+<h3 class="anchored" data-anchor-id="q4.-side-effect-functions">Q4. Side-effect functions</h3>
+<p>Answer:</p>
+<p>Side effect is a function that perform an action beyond simply returning a value.Here are some key points :</p>
+<p><strong>1) Changing state:-</strong> Side-effect functions can modify global variables, change the contents of data frames, write to files, or alter the state of objects in the environment. For example, using assign() to create or modify a variable in a different environment is a side effect.</p>
+<p><strong>2) Output Generation:</strong> Functions that produce visual output (like plots or graphs) or print messages to the console are also considered side-effect functions. For instance, print(), plot(), and cat() functions display output rather than returning a value for further computation. Walk() :- this is a side- effect function but return the original data. It is used to apply a function to each element of a list or vector without returning a result. It’s typically used for functions that produce side effects, such as printing or writing to files</p>
+<p>Other Side-Effect Functions in Base R In addition to purrr, many base R functions also have side effects, including:</p>
+<p>print(): Outputs the value to the console. cat(): Concatenates and prints objects. plot(): Generates visual output. write.csv(): Writes data frames to a CSV file. assign(): Assigns a value to a variable in a specified environment. message(): Sends a message to the console, useful for debugging.</p>
+</section>
+<section id="q5.-why-variable-name-sd-doesnt-cause-issue" class="level3">
+<h3 class="anchored" data-anchor-id="q5.-why-variable-name-sd-doesnt-cause-issue">Q5. Why variable name “sd” doesn’t cause issue</h3>
+<p>Answer:</p>
+<p>We can name a variable sd within function without causing issues with the built in sd() function because of scope and masking rule.</p>
+<p><strong>1. Function scope:-</strong> when we define a variable inside a function, it exists in that function’s local environment only.</p>
+<p><strong>2. Masking:-</strong> If a variable name in a local environment matches a function name like sd the local variable will mask the function witin that environment. It means outside the function, the global sd() function remains unchanged and accessible.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -811,13 +942,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Homework03/Placebo_BP_Treatment.html" class="pagination-link" aria-label="Placebo_BP_Treatment">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Placebo_BP_Treatment</span>
+      <a href="../../Homework06/index.html" class="pagination-link" aria-label="Homework 6">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Homework 6</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Homework04/pages/concepts.html" class="pagination-link" aria-label="Conceptual Questions">
-        <span class="nav-page-text">Conceptual Questions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../Homework06/pages/task2_functions.html" class="pagination-link" aria-label="task2_functions">
+        <span class="nav-page-text">task2_functions</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

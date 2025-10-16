@@ -1,0 +1,64 @@
+---
+title: "task1_conceptual"
+editor: visual
+---
+
+## Task 1: Conceptual Questions
+
+### Q1. Purpose of lapply() and equivalent purrr function
+
+Answer:
+
+lapply():- Applies a function to elements in a list or a vector and returns the results in a list.The syntax of lapply is lapply(x, FUN,...) where x is a vector, FUN: the function to be applied to each element of x. purrr function:-- purrr::map()-- it is more consistency and some helper functions are there, it offers more control over output types and integrates well with the tidyverse.
+
+### Q2. Using lapply() with cor(..., method = "kendall")
+
+```{r}
+list1 <- c(45,57,27,89,25,44)
+list2 <- c(34,23,567,45,67,26)
+
+my_list <- list(data.frame(list1, list2))
+
+cor_results <- lapply(my_list, function(numeric_matrix) {
+  cor(numeric_matrix, method = "kendall")
+})
+
+# print the correlation results
+cor_results
+```
+
+### Q3. Advantages of purrr
+
+Answer:
+
+1)  purrr functions consistently use . as prefix to avoid inadvertently matching arguments of the purrr function, instead of the function that you’re trying to call. Base functions use a variety of techniques including upper case (e.g. lapply(X, FUN, ...)) or require anonymous functions (e.g. Map()).
+
+All map functions are type stable: you can predict the type of the output using little information about the inputs. In contrast, the base functions sapply() and mapply() automatically simplify making the return value hard to predict.
+
+2)  The map functions all start with the data, followed by the function, then any additional constant argument. Most base apply functions also follow this pattern, but mapply() starts with the function, and Map() has no way to supply additional constant arguments.
+
+purrr functions provide all combinations of input and output variants, and include variants specifically for the common two argument case.
+
+### Q4. Side-effect functions
+
+Answer:
+
+Side effect is a function that perform an action beyond simply returning a value.Here are some key points :
+
+**1) Changing state:-** Side-effect functions can modify global variables, change the contents of data frames, write to files, or alter the state of objects in the environment. For example, using assign() to create or modify a variable in a different environment is a side effect.
+
+**2) Output Generation:** Functions that produce visual output (like plots or graphs) or print messages to the console are also considered side-effect functions. For instance, print(), plot(), and cat() functions display output rather than returning a value for further computation. Walk() :- this is a side- effect function but return the original data. It is used to apply a function to each element of a list or vector without returning a result. It’s typically used for functions that produce side effects, such as printing or writing to files
+
+Other Side-Effect Functions in Base R In addition to purrr, many base R functions also have side effects, including:
+
+print(): Outputs the value to the console. cat(): Concatenates and prints objects. plot(): Generates visual output. write.csv(): Writes data frames to a CSV file. assign(): Assigns a value to a variable in a specified environment. message(): Sends a message to the console, useful for debugging.
+
+### Q5. Why variable name "sd" doesn't cause issue
+
+Answer:
+
+We can name a variable sd within function without causing issues with the built in sd() function because of scope and masking rule.
+
+**1. Function scope:-** when we define a variable inside a function, it exists in that function's local environment only.
+
+**2. Masking:-** If a variable name in a local environment matches a function name like sd the local variable will mask the function witin that environment. It means outside the function, the global sd() function remains unchanged and accessible.

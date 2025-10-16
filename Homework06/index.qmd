@@ -1,0 +1,10 @@
+---
+title: "index"
+editor: visual
+---
+
+# Homework 06 - 
+
+Task 1 – [Conceptual question](pages/task1_conceptual.qmd)
+Task 2 – [Writing R functions](pages/task1_functions.qmd)
+Task 3 – [Using `purrr` for model fitting](pages/task1_purrr.qmd)

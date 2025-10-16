@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Saurabh Gupta">
-<meta name="dcterms.date" content="2025-10-06">
+<meta name="dcterms.date" content="2025-10-15">
 
-<title>Index – ST 558 Assignments &amp; Projects</title>
+<title>task3_purrr – ST 558 Assignments &amp; Projects</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,27 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../Homework04/pages/concepts.html" rel="next">
-<link href="../Homework03/Placebo_BP_Treatment.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Homework07/index.qmd" rel="next">
+<link href="../../Homework06/pages/task2_functions.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -82,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">ST 558 Assignments &amp; Projects</span>
     </a>
   </div>
@@ -93,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../../index.qmd"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -102,28 +135,32 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-homework">    
         <li>
-    <a class="dropdown-item" href="../Homework01/Data_Science.html">
+    <a class="dropdown-item" href="../../Homework01/Data_Science.html">
  <span class="dropdown-text">Homework 01</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework02/BaseR_Programming.html">
+    <a class="dropdown-item" href="../../Homework02/BaseR_Programming.html">
  <span class="dropdown-text">Homework 02</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework03/Placebo_BP_Treatment.html">
+    <a class="dropdown-item" href="../../Homework03/Placebo_BP_Treatment.html">
  <span class="dropdown-text">Homework 03</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework04/index.html">
+    <a class="dropdown-item" href="../../Homework04/index.html">
  <span class="dropdown-text">Homework 04</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework05/index.html">
+    <a class="dropdown-item" href="../../Homework05/index.html">
  <span class="dropdown-text">Homework 05</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Homework06/index.qmd">
+    <a class="dropdown-item" href="../../Homework06/index.html">
  <span class="dropdown-text">Homework 06</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Homework07/index.qmd">
+ <span class="dropdown-text">Homework 07</span></a>
   </li>  
     </ul>
   </li>
@@ -133,15 +170,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-project">    
         <li>
-    <a class="dropdown-item" href="../MidTermProject1/index.qmd">
+    <a class="dropdown-item" href="../../MidTermProject1/index.qmd">
  <span class="dropdown-text">MidTerm Project 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../MidTermProject2/index.qmd">
+    <a class="dropdown-item" href="../../MidTermProject2/index.qmd">
  <span class="dropdown-text">MidTerm Project 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../FinalProject1/index.qmd">
+    <a class="dropdown-item" href="../../FinalProject1/index.qmd">
  <span class="dropdown-text">Final Project</span></a>
   </li>  
     </ul>
@@ -162,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Homework04/index.html">Homework 4</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Homework06/index.html">Homework 6</a></li><li class="breadcrumb-item"><a href="../../Homework06/pages/task3_purrr.html">task3_purrr</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,7 +221,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework01/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework01/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 1</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -193,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework01/Data_Science.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework01/Data_Science.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data_Science</span></a>
   </div>
 </li>
@@ -201,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework02/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework02/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -210,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework02/BaseR_Programming.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework02/BaseR_Programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BaseR_Programming</span></a>
   </div>
 </li>
@@ -218,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework03/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework03/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 3</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -227,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework03/Placebo_BP_Treatment.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework03/Placebo_BP_Treatment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Placebo_BP_Treatment</span></a>
   </div>
 </li>
@@ -235,7 +272,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework04/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../Homework04/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 4</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -244,19 +281,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework04/pages/concepts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework04/pages/concepts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conceptual Questions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework04/pages/read_delimited.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework04/pages/read_delimited.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Delimited Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework04/pages/combining.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework04/pages/combining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Combining Excel and Delimited Data</span></a>
   </div>
 </li>
@@ -264,7 +301,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework05/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework05/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 5</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -273,31 +310,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/read_merge.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/read_merge.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">read_merge</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/categorical_tables.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/joins_factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">joins_factors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework05/pages/categorical_tables.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">categorical_tables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/summary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">summary</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/distribution_plots.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/distribution_plots.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">distribution_plots</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Homework05/pages/scatter_plots.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Homework05/pages/scatter_plots.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">scatter_plots</span></a>
   </div>
 </li>
@@ -305,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Homework06/index.qmd" class="sidebar-item-text sidebar-link">
+            <a href="../../Homework06/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 6</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -313,19 +356,48 @@ ul.task-list li input[type="checkbox"] {
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">Homework06/pages/concepts.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework06/pages/task1_conceptual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">task1_conceptual</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework06/pages/task2_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">task2_functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Homework06/pages/task3_purrr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">task3_purrr</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Projects</span></a>
+            <a href="../../Homework07/index.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 7</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">Homework07/pages/concepts.qmd</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
  <span class="menu-text">MidTermProject1/index.qmd</span>
   </li>
@@ -342,32 +414,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-3-practice-with-purrr" id="toc-task-3-practice-with-purrr" class="nav-link active" data-scroll-target="#task-3-practice-with-purrr">Task 3: Practice with purrr</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Homework06/index.html">Homework 6</a></li><li class="breadcrumb-item"><a href="../../Homework06/pages/task3_purrr.html">task3_purrr</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Index</h1>
+<h1 class="title">task3_purrr</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Saurabh Gupta </p>
-          </div>
-  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-10-06</p>
+      <p class="date">2025-10-15</p>
     </div>
   </div>
   
@@ -379,14 +451,214 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Quick links to the parts:</p>
-<ul>
-<li><a href="../Homework04/pages/concepts.html">Concepts</a></li>
-<li><a href="../Homework04/pages/read_delimited.html">Reading Delimited Data</a></li>
-<li><a href="../Homework04/pages/combining.html">Combining Excel &amp; Delimited Data</a></li>
-</ul>
+<section id="task-3-practice-with-purrr" class="level2">
+<h2 class="anchored" data-anchor-id="task-3-practice-with-purrr">Task 3: Practice with purrr</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>1. Fit a simple linear model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm_fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Length <span class="sc">~</span> Sepal.Width <span class="sc">+</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sepal.Length ~ Sepal.Width + Species, data = iris)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.30711 -0.25713 -0.05325  0.19542  1.41253 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         2.2514     0.3698   6.089 9.57e-09 ***
+Sepal.Width         0.8036     0.1063   7.557 4.19e-12 ***
+Speciesversicolor   1.4587     0.1121  13.012  &lt; 2e-16 ***
+Speciesvirginica    1.9468     0.1000  19.465  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.438 on 146 degrees of freedom
+Multiple R-squared:  0.7259,    Adjusted R-squared:  0.7203 
+F-statistic: 128.9 on 3 and 146 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Pull out coefficients three ways</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lm_fit1<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      (Intercept)       Sepal.Width Speciesversicolor  Speciesvirginica 
+        2.2513932         0.8035609         1.4587431         1.9468166 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm_fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      (Intercept)       Sepal.Width Speciesversicolor  Speciesvirginica 
+        2.2513932         0.8035609         1.4587431         1.9468166 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pluck</span>(lm_fit1, <span class="st">"coefficients"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      (Intercept)       Sepal.Width Speciesversicolor  Speciesvirginica 
+        2.2513932         0.8035609         1.4587431         1.9468166 </code></pre>
+</div>
+</div>
+<p>2. Fit multiple models and store in list</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lm_fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Length<span class="sc">~</span> Sepal.Width, <span class="at">data =</span> iris)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lm_fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Length<span class="sc">~</span> Petal.Width <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>lm_fit4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Length<span class="sc">~</span> Petal.Width <span class="sc">+</span> Petal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Species,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">data =</span> iris)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>fits <span class="ot">&lt;-</span> <span class="fu">list</span>(lm_fit1, lm_fit2, lm_fit3, lm_fit4)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>fits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+
+Call:
+lm(formula = Sepal.Length ~ Sepal.Width + Species, data = iris)
+
+Coefficients:
+      (Intercept)        Sepal.Width  Speciesversicolor   Speciesvirginica  
+           2.2514             0.8036             1.4587             1.9468  
 
 
+[[2]]
+
+Call:
+lm(formula = Sepal.Length ~ Sepal.Width, data = iris)
+
+Coefficients:
+(Intercept)  Sepal.Width  
+     6.5262      -0.2234  
+
+
+[[3]]
+
+Call:
+lm(formula = Sepal.Length ~ Petal.Width + Sepal.Width + Species, 
+    data = iris)
+
+Coefficients:
+      (Intercept)        Petal.Width        Sepal.Width  Speciesversicolor  
+           2.5211             0.3716             0.6982             0.9881  
+ Speciesvirginica  
+           1.2376  
+
+
+[[4]]
+
+Call:
+lm(formula = Sepal.Length ~ Petal.Width + Petal.Length + Sepal.Width + 
+    Species, data = iris)
+
+Coefficients:
+      (Intercept)        Petal.Width       Petal.Length        Sepal.Width  
+           2.1713            -0.3152             0.8292             0.4959  
+Speciesversicolor   Speciesvirginica  
+          -0.7236            -1.0235  </code></pre>
+</div>
+</div>
+<p>Use purrr::map() and pluck() to extract coefficients from each model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>coef_list <span class="ot">&lt;-</span> <span class="fu">map</span>(fits, pluck, <span class="st">"coefficients"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>coef_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+      (Intercept)       Sepal.Width Speciesversicolor  Speciesvirginica 
+        2.2513932         0.8035609         1.4587431         1.9468166 
+
+[[2]]
+(Intercept) Sepal.Width 
+  6.5262226  -0.2233611 
+
+[[3]]
+      (Intercept)       Petal.Width       Sepal.Width Speciesversicolor 
+        2.5210733         0.3715768         0.6982260         0.9881297 
+ Speciesvirginica 
+        1.2375878 
+
+[[4]]
+      (Intercept)       Petal.Width      Petal.Length       Sepal.Width 
+        2.1712663        -0.3151552         0.8292439         0.4958889 
+Speciesversicolor  Speciesvirginica 
+       -0.7235620        -1.0234978 </code></pre>
+</div>
+</div>
+<p>3. Apply confint() to each model using map()</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>confint_list <span class="ot">&lt;-</span> <span class="fu">map</span>(fits, confint)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>confint_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+                      2.5 %   97.5 %
+(Intercept)       1.5206309 2.982156
+Sepal.Width       0.5933983 1.013723
+Speciesversicolor 1.2371791 1.680307
+Speciesvirginica  1.7491525 2.144481
+
+[[2]]
+                2.5 %     97.5 %
+(Intercept)  5.579865 7.47258038
+Sepal.Width -0.529820 0.08309785
+
+[[3]]
+                        2.5 %    97.5 %
+(Intercept)        1.74261803 3.2995285
+Petal.Width       -0.02042746 0.7635811
+Sepal.Width        0.46205710 0.9343950
+Speciesversicolor  0.44520784 1.5310516
+Speciesvirginica   0.46412393 2.0110518
+
+[[4]]
+                       2.5 %      97.5 %
+(Intercept)        1.6182321  2.72430044
+Petal.Width       -0.6140049 -0.01630542
+Petal.Length       0.6937939  0.96469395
+Sepal.Width        0.3257653  0.66601260
+Speciesversicolor -1.1982739 -0.24885002
+Speciesvirginica  -1.6831329 -0.36386273</code></pre>
+</div>
+</div>
+<p>4. Plot histograms of residuals for each model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>resid_list <span class="ot">&lt;-</span> <span class="fu">map</span>(fits, <span class="st">"residuals"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(resid_list, hist, <span class="at">main =</span> <span class="st">"Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual value"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="task3_purrr_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>5. Add names to residual lists and use iwalk() to label plots properly</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>named_resid_list <span class="ot">&lt;-</span> resid_list <span class="sc">|&gt;</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"fit1"</span>, <span class="st">"fit2"</span>, <span class="st">"fit3"</span>, <span class="st">"fit4"</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">iwalk</span>(named_resid_list, <span class="sc">~</span><span class="fu">hist</span>(.x, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Residuals -"</span>, .y), <span class="at">xlab =</span> <span class="st">"Residual value"</span>, <span class="at">col =</span> <span class="st">"lightgreen"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="task3_purrr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -811,13 +1083,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Homework03/Placebo_BP_Treatment.html" class="pagination-link" aria-label="Placebo_BP_Treatment">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Placebo_BP_Treatment</span>
+      <a href="../../Homework06/pages/task2_functions.html" class="pagination-link" aria-label="task2_functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">task2_functions</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Homework04/pages/concepts.html" class="pagination-link" aria-label="Conceptual Questions">
-        <span class="nav-page-text">Conceptual Questions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../Homework07/index.qmd" class="pagination-link" aria-label="Homework 7">
+        <span class="nav-page-text">Homework 7</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

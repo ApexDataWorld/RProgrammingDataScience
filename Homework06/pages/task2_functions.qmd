@@ -1,0 +1,307 @@
+---
+title: "task2_functions"
+editor: visual
+---
+
+## Task 2: Writing R Functions
+
+1.  Write a basic function (call it getRMSE()) that takes in a vector of responses and a vector of predictions and outputs the RMSE.
+
+```{r}
+getRMSE <- function(responses, predictions, na.rm = TRUE) {
+ 
+  # Calculate the RMSE
+  cal_rmse <- sqrt(mean((responses - predictions)^2, na.rm = na.rm))
+  
+  return(cal_rmse)
+}
+
+# Example usage
+responses <- c(3, 9, NA, 7, NA, 34, 67)
+predictions <- c(2, 5, 8, 23, 51, 21, 34)
+
+rmse_result <- getRMSE(responses, predictions)
+print(rmse_result)
+```
+
+2.  Run the following code to create some response values and predictions.
+
+```{r}
+set.seed(10)
+n <- 100
+x <- runif(n)
+resp <- 3 + 10 * x + rnorm(n)
+pred <- predict(lm(resp ~ x), data.frame(x))
+```
+
+• Test your RMSE function using this data.
+
+```{r}
+rmse_result1 <- getRMSE(resp, pred)
+print(paste0("Without NA \n ", rmse_result1))
+
+
+```
+
+• Repeat after replacing two of the response values with missing values (NA_real\_). – Test your RMSE function with and without specifying the behavior to deal with missing values.
+
+```{r}
+
+# Change the first two response values with NA_real_
+resp[c(1, 2)] <- NA_real_
+```
+
+```{r}
+
+#Find RMSE, removing NA values if present
+rmse_without_na <- getRMSE(resp, pred, na.rm = TRUE)
+print(paste("RMSE without NA handling (na.rm = TRUE):", rmse_without_na))
+```
+
+```{r}
+# Test RMSE with explicit handling of NA
+rmse_with_na <- getRMSE(resp, pred, na.rm = FALSE)
+print(paste("RMSE with NA  (na.rm = FALSE):", rmse_with_na))
+
+
+```
+
+3.  Another common metric for evaluating predictions is mean absolute deviation. Write a function called getMAE() that follows the specifications of the getRMSE() function. getMAE use for handling the missing values
+
+```{r}
+getMAE <- function(responses, predictions, na.rm = TRUE){
+  # Calculate MAE
+  abs_value <- abs(responses - predictions)
+  mae_cal <- mean(abs_value, na.rm = na.rm)
+  return(mae_cal)
+}
+
+
+# Example
+responses <- c(3, 9, NA, 7, 6, 34, 67)
+predictions <- c(2, 5, 8, 23, 51, 21, 34)
+
+mae_result <- getMAE(responses, predictions)
+print(paste("Mean Absolute Value is", mae_result))
+```
+
+4.  Run the following code to create some response values and predictions.
+
+```{r}
+set.seed(10)
+n <- 100
+x <- runif(n)
+resp <- 3 + 10 * x + rnorm(n)
+pred <- predict(lm(resp ~ x), data.frame(x))
+
+```
+
+• Test MAE function by using given data.
+
+```{r}
+mae_result1 <- getMAE(resp, pred)
+print(paste("The MAE value without NA ", mae_result1))
+```
+
+• Repeat after replacing two of the response values with missing values (NA_real\_). – Test your MAE function with and without specifying the behavior to deal with missing values.
+
+```{r}
+# Change 2 values with the missing values NA_real_
+resp[c(1,4)] <- NA_real_
+```
+
+```{r}
+# Without NA value
+mae_without_NA <- getMAE(resp,pred)
+print(paste("Result of MAE Without NA values ", mae_without_NA))
+```
+
+```{r}
+# with NA values
+mae_with_na <- getMAE(resp, pred, na.rm = FALSE)
+print(paste("MAE value with na ", mae_with_na))
+#print(mae_with_na)
+```
+
+5.  create a wrapper function that can be used to get either or both metrics returned with a single function call. Do not rewrite your above two functions, call them inside the wrapper function (we would call the getRMSE() and getMAE() functions helper functions). When returning your values, give them appropriate names.
+
+```{r}
+# helper functions getRMSE() and getMAE() :
+getRMSE <- function(responses, predictions, na.rm = TRUE) {
+  sqrt(mean((responses - predictions)^2, na.rm = na.rm))
+}
+
+getMAE <- function(responses, predictions, na.rm = TRUE) {
+  mean(abs(responses - predictions), na.rm = na.rm)
+}
+
+# Wrapper function
+getMetrics <- function(responses, predictions, metric = "both", na.rm = TRUE) {
+  
+  # Check if response and prediction inputs are numeric atomic vectors
+  if (!(is.numeric(responses) && is.atomic(responses) && is.vector(responses))) {
+    stop("Error: 'responses' must be a numeric atomic vector.")
+  }
+  
+  if (!(is.numeric(predictions) && is.atomic(predictions) && is.vector(predictions))) {
+    stop("Error: 'predictions' must be a numeric atomic vector.")
+  }
+  
+  # Initialize an empty list 
+  result <- list()
+
+  # Compute the required metric based on the argument
+  if (metric == "RMSE" || metric == "both") {
+    result$RMSE <- getRMSE(responses, predictions, na.rm = na.rm)
+  }
+  
+  if (metric == "MAE" || metric == "both") {
+    result$MAE <- getMAE(responses, predictions, na.rm = na.rm)
+  }
+  
+  # If there is only single metric
+  if (metric != "both" && length(result) == 1) {
+    result <- unlist(result)
+  }
+  
+  return(result)
+}
+
+# Input 
+set.seed(10)
+n <- 100
+x <- runif(n)
+resp <- 3 + 10 * x + rnorm(n)
+pred <- predict(lm(resp ~ x), data.frame(x))
+
+# Test wrapper for both RMSE and MAE
+both_metrics <- getMetrics(resp, pred)
+print(both_metrics)
+
+# Test wrapper for RMSE
+rmse_only <- getMetrics(resp, pred, metric = "RMSE")
+print(rmse_only)
+
+# Test wrapper for MAE
+mae_only <- getMetrics(resp, pred, metric = "MAE")
+print(mae_only)
+
+# Test with invalid input (non-numeric vector)
+#invalid_input <- getMetrics(c("a", "b", "c"), pred)
+
+
+
+
+```
+
+6.  Run the following code to create some response values and predictions:
+
+```{r}
+set.seed(10)
+n <- 100
+x <- runif(n)
+resp <- 3 + 10 * x + rnorm(n)
+pred <- predict(lm(resp ~ x), data.frame(x))
+```
+
+```{r}
+# Define RMSE Wrapper function
+rmseWrapper <- function(actual, predicted, na.rm = TRUE) {
+  if (!is.numeric(actual) || !is.numeric(predicted)) {
+    stop("Both 'actual' and 'predicted' should be numeric vectors.")
+  }
+  
+  if (na.rm) {
+    valid <- !is.na(actual) & !is.na(predicted)
+    actual <- actual[valid]
+    predicted <- predicted[valid]
+  }
+  
+  sqrt(mean((actual - predicted)^2, na.rm = na.rm))
+}
+
+# Define MAE Wrapper function
+maeWrapper <- function(actual, predicted, na.rm = TRUE) {
+  if (!is.numeric(actual) || !is.numeric(predicted)) {
+    stop("Both 'actual' and 'predicted' should be numeric vectors.")
+  }
+  
+  if (na.rm) {
+    valid <- !is.na(actual) & !is.na(predicted)
+    actual <- actual[valid]
+    predicted <- predicted[valid]
+  }
+  
+  mean(abs(actual - predicted), na.rm = na.rm)
+}
+
+```
+
+• Test your new function using this data. Call it once asking for each metric individually and once specifying both metrics • Repeat with replacing two of the response values with missing values (NA_real\_). • Finally, test your function by passing it incorrect data (i.e. a data frame or something else instead of vectors.
+
+```{r}
+# run the wrapper function
+rmse_value <- rmseWrapper(resp, pred)
+print(paste("RMSE:", rmse_value))
+
+```
+
+Test the MAE wrapper function:
+
+```{r}
+mae_value <- maeWrapper(resp, pred)
+print(paste("MAE:", mae_value))
+
+```
+
+Test both functions individually:
+
+```{r}
+# Test RMSE
+rmse_result <- rmseWrapper(resp, pred)
+print(paste("Individual RMSE:", rmse_result))
+
+# Test MAE
+mae_result <- maeWrapper(resp, pred)
+print(paste("Individual MAE:", mae_result))
+
+```
+
+Step 3: Handle missing values
+
+```{r}
+# missing values into the response data
+resp[1] <- NA_real_
+resp[2] <- NA_real_
+
+# RMSE with missing values
+rmse_with_na <- rmseWrapper(resp, pred, na.rm = TRUE)
+print(paste("RMSE with NA ", rmse_with_na))
+
+# MAE with missing values
+mae_with_na <- maeWrapper(resp, pred, na.rm = TRUE)
+print(paste("MAE with NA ", mae_with_na))
+
+# missing values without na.rm
+rmse_with_na_false <- rmseWrapper(resp, pred, na.rm = FALSE)
+print(paste("RMSE with NA (na.rm = FALSE):", rmse_with_na_false))
+
+mae_with_na_false <- maeWrapper(resp, pred, na.rm = FALSE)
+print(paste("MAE with NA (na.rm = FALSE):", mae_with_na_false))
+
+```
+
+Step 4: Test with incorrect data types
+
+```{r}
+# Check the incorrect input (data frame)
+#incorrect_data <- data.frame(resp, pred)
+
+# Expecting error messages here
+#try(rmseWrapper(incorrect_data, pred))
+#try(maeWrapper(resp, incorrect_data))
+
+```
+
+```{r}
+```

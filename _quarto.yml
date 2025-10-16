@@ -29,7 +29,9 @@ website:
           - text: Homework 05
             href: Homework05/index.qmd
           - text: Homework 06
-            href: Homework06/index.qmd  
+            href: Homework06/index.qmd
+          - text: Homework 07
+            href: Homework07/index.qmd
       - text: Project
         menu:
           - text: MidTerm Project 1
@@ -74,7 +76,13 @@ website:
       - section: "Homework 6"
         href: Homework06/index.qmd
         contents:
-          - Homework06/pages/concepts.qmd    
+          - Homework06/pages/task1_conceptual.qmd
+          - Homework06/pages/task2_functions.qmd
+          - Homework06/pages/task3_purrr.qmd
+      - section: "Homework 7"
+        href: Homework07/index.qmd
+        contents:
+          - Homework07/pages/concepts.qmd    
       - section: "Projects"
         contents:
           - MidTermProject1/index.qmd
