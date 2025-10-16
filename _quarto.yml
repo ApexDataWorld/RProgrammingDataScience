@@ -3,8 +3,16 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - "Homework*/**/*.qmd"
-    - "Project/**/*.qmd"
+    - Homework01/**/*.qmd
+    - Homework02/**/*.qmd
+    - Homework03/**/*.qmd
+    - Homework04/**/*.qmd
+    - Homework05/**/*.qmd
+    - Homework06/**/*.qmd
+    - Homework07/**/*.qmd
+    - MidTermProject1/**/*.qmd
+    - MidTermProject2/**/*.qmd
+    - FinalProject/**/*.qmd
 
 website:
   title: "ST 558 Assignments & Projects"
@@ -19,11 +27,11 @@ website:
       - text: Homework
         menu:
           - text: Homework 01
-            href: Homework01/Data_Science.qmd
+            href: Homework01/index.qmd
           - text: Homework 02
-            href: Homework02/BaseR_Programming.qmd
+            href: Homework02/index.qmd
           - text: Homework 03
-            href: Homework03/Placebo_BP_Treatment.qmd
+            href: Homework03/index.qmd
           - text: Homework 04
             href: Homework04/index.qmd
           - text: Homework 05
@@ -32,62 +40,62 @@ website:
             href: Homework06/index.qmd
           - text: Homework 07
             href: Homework07/index.qmd
-      - text: Project
+      - text: Projects
         menu:
           - text: MidTerm Project 1
             href: MidTermProject1/index.qmd
           - text: MidTerm Project 2
             href: MidTermProject2/index.qmd
           - text: Final Project
-            href: FinalProject1/index.qmd
+            href: FinalProject/index.qmd
 
-  sidebar:
-    style: docked
-    search: true
-    collapse-level: 2
-    contents:
-      - section: "Homework 1"
-        href: Homework01/index.qmd
-        contents:
-          - Homework01/Data_Science.qmd
-      - section: "Homework 2"
-        href: Homework02/index.qmd
-        contents:
-          - Homework02/BaseR_Programming.qmd
-      - section: "Homework 3"
-        href: Homework03/index.qmd
-        contents:
-          - Homework03/Placebo_BP_Treatment.qmd
-      - section: "Homework 4"
-        href: Homework04/index.qmd
-        contents:
-          - Homework04/pages/concepts.qmd
-          - Homework04/pages/read_delimited.qmd
-          - Homework04/pages/combining.qmd
-      - section: "Homework 5"
-        href: Homework05/index.qmd
-        contents:
-          - Homework05/pages/read_merge.qmd
-          - Homework05/pages/joins_factors.qmd
-          - Homework05/pages/categorical_tables.qmd
-          - Homework05/pages/summary.qmd
-          - Homework05/pages/distribution_plots.qmd
-          - Homework05/pages/scatter_plots.qmd
-      - section: "Homework 6"
-        href: Homework06/index.qmd
-        contents:
-          - Homework06/pages/task1_conceptual.qmd
-          - Homework06/pages/task2_functions.qmd
-          - Homework06/pages/task3_purrr.qmd
-      - section: "Homework 7"
-        href: Homework07/index.qmd
-        contents:
-          - Homework07/pages/concepts.qmd    
-      - section: "Projects"
-        contents:
-          - MidTermProject1/index.qmd
-          - MidTermProject2/index.qmd
-          - FinalProject/index.qmd
+sidebar:
+  style: docked
+  search: true
+  collapse-level: 2
+  contents:
+    - section: "Homework 1"
+      href: Homework01/index.qmd
+      contents:
+        - Homework01/Data_Science.qmd
+    - section: "Homework 2"
+      href: Homework02/index.qmd
+      contents:
+        - Homework02/BaseR_Programming.qmd
+    - section: "Homework 3"
+      href: Homework03/index.qmd
+      contents:
+        - Homework03/Placebo_BP_Treatment.qmd
+    - section: "Homework 4"
+      href: Homework04/index.qmd
+      contents:
+        - Homework04/pages/concepts.qmd
+        - Homework04/pages/read_delimited.qmd
+        - Homework04/pages/combining.qmd
+    - section: "Homework 5"
+      href: Homework05/index.qmd
+      contents:
+        - Homework05/pages/read_merge.qmd
+        - Homework05/pages/joins_factors.qmd
+        - Homework05/pages/categorical_tables.qmd
+        - Homework05/pages/summary.qmd
+        - Homework05/pages/distribution_plots.qmd
+        - Homework05/pages/scatter_plots.qmd
+    - section: "Homework 6"
+      href: Homework06/index.qmd
+      contents:
+        - Homework06/pages/task1_conceptual.qmd
+        - Homework06/pages/task2_functions.qmd
+        - Homework06/pages/task3_purrr.qmd
+    - section: "Homework 7"
+      href: Homework07/index.qmd
+      contents:
+        - Homework07/pages/concepts.qmd
+    - section: "Projects"
+      contents:
+        - MidTermProject1/index.qmd
+        - MidTermProject2/index.qmd
+        - FinalProject/index.qmd
 
 format:
   html:
