@@ -1,0 +1,136 @@
+---
+title: "01_read_eda"
+editor: visual
+---
+
+### Load Libraries
+
+```{r}
+
+library(readr)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+
+```
+
+### Read Data
+
+```{r}
+bike_data <- read_csv(
+"https://www4.stat.ncsu.edu/~online/datasets/SeoulBikeData.csv",
+skip = 1,
+locale = locale(encoding = "UTF-8"),
+col_names = FALSE,
+show_col_types = FALSE
+)
+
+colnames(bike_data) <- c(
+"Date", "Rented_Bike_Count", "Hour", "Temperature",
+"Humidity", "Windspeed", "Visibility", "Dew_Point_Temperature",
+"Solar_Radiation", "Rainfall", "Snowfall", "Seasons",
+"Holiday", "Functioning_Day"
+)
+
+head(bike_data)
+
+```
+
+```{r}
+sum(is.na(bike_data))
+str(bike_data)
+
+```
+
+### Clean Variables
+
+```{r}
+bike_data <- bike_data |>
+mutate(
+Date = dmy(Date),
+Seasons = as.factor(Seasons),
+Holiday = as.factor(Holiday),
+Functioning_Day = as.factor(Functioning_Day)
+)
+
+str(bike_data)
+
+```
+
+### Summary 
+
+```{r}
+# Numeric summaries
+
+summary(select_if(bike_data, is.numeric))
+
+# Categorical levels
+
+unique(bike_data$Seasons)
+unique(bike_data$Holiday)
+unique(bike_data$Functioning_Day)
+
+
+```
+
+### Summary by Season and Holiday
+
+```{r}
+bike_data_summary <- bike_data |>
+filter(Functioning_Day == "Yes") |>
+group_by(Seasons, Holiday) |>
+summarize(
+mean_rent   = mean(Rented_Bike_Count),
+sd_rent     = sd(Rented_Bike_Count),
+median_rent = median(Rented_Bike_Count),
+.groups = "drop"
+)
+
+bike_data_summary
+
+
+```
+
+This table shows clear seasonal differences in bike rentals.
+
+Summer has the highest average rentals, followed by Autumn.
+
+Winter has very low rental counts, which matches expectations due to cold weather.
+
+Holidays generally have slightly lower rentals than non-holidays in each season.
+
+Spring shows more variation, with wide differences between the mean, median, and standard deviation.
+
+Overall, season and holiday status clearly affect bike rental behavior.
+
+### Visualization
+
+```{r}
+ggplot(bike_data_summary, aes(x = Seasons, y = mean_rent, fill = Holiday)) +
+geom_bar(stat = "identity", position = "dodge") +
+labs(
+title = "Mean Rentals by Season and Holiday (Hour-Level)",
+x = "Season",
+y = "Mean Rentals"
+) +
+theme_minimal()
+
+
+```
+
+This plot shows clear differences in bike rentals across seasons and holidays.
+
+Summer has the highest average rentals, followed by Autumn.
+
+Spring rentals are moderate, and Winter rentals are the lowest.
+
+Holidays generally have slightly lower rentals than non-holidays in every season, especially in Winter and Spring where the drop is more noticeable.
+
+Overall, this plot shows that both season and holiday status strongly affect how many bikes are rented each hour.
+
+### Save the dataset as an RDS file for reuse
+
+```{r}
+saveRDS(bike_data, file = "../bike_data.rds")
+
+```

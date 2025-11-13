@@ -1,0 +1,251 @@
+---
+title: "03_modeling_results"
+editor: visual
+---
+
+### Load Libraries
+
+```{r}
+# Load libraries needed for modeling
+library(tidyverse)
+library(tidymodels)
+library(lubridate)
+```
+
+### Load Data
+
+```{r}
+# Load dataset saved from earlier step
+daily_bike <- readRDS("../daily_bike.rds")
+str(daily_bike)
+
+```
+
+### Split Data
+
+```{r}
+set.seed(123)
+bike_split <- initial_split(daily_bike, prop = 0.75, strata = Seasons)
+bike_train <- training(bike_split)
+bike_test  <- testing(bike_split)
+
+```
+
+### Recipe 1: base model 
+
+```{r}
+# This recipe prepares the data for modeling. 
+# It creates a weekday and weekend variable from the date, removes the original Date column,
+# standardizes all numeric predictors so they are on the same scale,
+# and converts all categorical variables into dummy (0/1) variables.
+# These steps help the linear model interpret the data correctly.
+
+
+recipe_1 <- recipe(Rented_Bike_sum ~ ., data = bike_train) |>
+step_mutate(day_type = factor(if_else(wday(Date) %in% c(1,7), "weekend", "weekday"))) |>
+step_rm(Date) |>
+step_normalize(all_numeric_predictors()) |>
+step_dummy(all_nominal_predictors())
+```
+
+### Recipe 2: add interactions
+
+```{r}
+# This recipe builds on the first one. It includes weekday and weekend,
+# removes the Date column, standardizes numeric variables,
+# and makes dummy variables for categorical features.
+# It also adds interaction terms so the model can capture how
+# seasons and holidays work together, how seasons and temperature interact,
+# and how temperature and rainfall interact. This helps the model learn
+# more complex relationships in the data.
+
+
+recipe_2 <- recipe(Rented_Bike_sum ~ ., data = bike_train) |>
+step_mutate(day_type = factor(if_else(wday(Date) %in% c(1,7), "weekend", "weekday"))) |>
+step_rm(Date) |>
+step_normalize(all_numeric_predictors()) |>
+step_dummy(all_nominal_predictors()) |>
+step_interact(
+terms = ~ starts_with("Seasons") * starts_with("Holiday") +
+starts_with("Seasons") * Temperature_mean +
+Temperature_mean * Rainfall_sum
+)
+```
+
+### Recipe 3: add quadratic terms (polynomials) 
+
+```{r}
+# This recipe includes everything from recipe 2 (weekday and weekend,
+# removing Date, standardizing numerics, dummy variables, and interactions).
+# It also adds polynomial (squared) terms for several numeric predictors.
+# These quadratic terms help the model capture curved relationships,
+# such as rentals increasing up to a point and then leveling off.
+# This makes the model more flexible for weather related effects.
+
+
+recipe_3 <- recipe(Rented_Bike_sum ~ ., data = bike_train) |>
+step_mutate(day_type = factor(if_else(wday(Date) %in% c(1,7), "weekend", "weekday"))) |>
+step_rm(Date) |>
+step_normalize(all_numeric_predictors()) |>
+step_dummy(all_nominal_predictors()) |>
+step_interact(
+terms = ~ starts_with("Seasons") * starts_with("Holiday") +
+starts_with("Seasons") * Temperature_mean +
+Temperature_mean * Rainfall_sum
+) |>
+step_poly(
+Temperature_mean,
+Humidity_mean,
+Windspeed_mean,
+Visibility_mean,
+Dew_Point_Temperature_mean,
+Solar_Radiation_mean,
+degree = 2
+)
+
+```
+
+### Model Setup
+
+```{r}
+# Here I set up our linear regression model and combine it with each recipe.
+# I create one workflow for each recipe so we can compare the three models:
+# Model 1 uses the basic recipe, Model 2 adds interaction terms,
+# and Model 3 adds both interactions and polynomial terms.
+
+
+
+bike_mod <- linear_reg() |>
+set_engine("lm")
+
+bike_wfl_1 <- workflow() |>
+add_recipe(recipe_1) |>
+add_model(bike_mod)
+
+bike_wfl_2 <- workflow() |>
+add_recipe(recipe_2) |>
+add_model(bike_mod)
+
+bike_wfl_3 <- workflow() |>
+add_recipe(recipe_3) |>
+add_model(bike_mod)
+
+
+```
+
+### Cross-Validation
+
+```{r}
+# I use 10 fold cross validation to compare the performance of the three models.
+# The training data is split into 10 parts, and each model is tested across all folds.
+# Measure error using RMSE, which tells us how far the predictions are from the actual rentals.
+
+
+set.seed(42)
+bike_10_fold <- vfold_cv(bike_train, v = 10)
+
+bike_res_1 <- fit_resamples(
+bike_wfl_1,
+resamples = bike_10_fold,
+metrics = metric_set(rmse)
+)
+
+bike_res_2 <- fit_resamples(
+bike_wfl_2,
+resamples = bike_10_fold,
+metrics = metric_set(rmse)
+)
+
+bike_res_3 <- fit_resamples(
+bike_wfl_3,
+resamples = bike_10_fold,
+metrics = metric_set(rmse)
+)
+
+
+```
+
+### Compare Metrics
+
+```{r}
+
+metrics_1 <- collect_metrics(bike_res_1) |> mutate(workflow = "Model 1")
+metrics_2 <- collect_metrics(bike_res_2) |> mutate(workflow = "Model 2")
+metrics_3 <- collect_metrics(bike_res_3) |> mutate(workflow = "Model 3")
+
+all_metrics <- bind_rows(metrics_1, metrics_2, metrics_3)
+
+all_metrics |> arrange(mean)
+
+```
+
+Model 2 has the lowest RMSE, which means it predicts daily bike rentals the most accurately.
+
+Model 3 is slightly worse, and Model 1 performs the worst.
+
+This shows that adding interaction terms improves the model,
+
+but adding polynomial terms does not help much for this dataset.
+
+### Final Fit and Results
+
+```{r}
+
+rmse_rows <- all_metrics |> filter(.metric == "rmse")
+best_row <- rmse_rows |> arrange(mean) |> slice(1)
+
+best_row
+
+
+
+```
+
+The best model chosen by cross-validation is Model 2.
+
+Model 2 had the smallest average RMSE across the 10 folds.
+
+This means the interaction terms in Model 2 helped the model learn important relationships
+
+between season, holiday, temperature, and rainfall.
+
+```{r}
+workflow_list <- list(
+"Model 1" = bike_wfl_1,
+"Model 2" = bike_wfl_2,
+"Model 3" = bike_wfl_3
+)
+best_wfl <- workflow_list[[ best_row$workflow ]]
+final_fit <- best_wfl |>
+last_fit(split = bike_split)
+final_metrics <- final_fit |>
+collect_metrics()
+final_metrics
+```
+
+On the test data, the RMSE is about 3081 rentals, which is similar to the CV error.
+
+This means the model generalizes well and is not overfitting.
+
+The R-squared value is about 0.91, meaning the model explains about 91% of the variation
+
+in daily bike rentals, which shows a strong fit.
+
+### Coefficients
+
+```{r}
+final_model <- extract_fit_parsnip(final_fit$.workflow[[1]])
+tidy(final_model)
+
+```
+
+Solar radiation has a large positive effect, meaning sunny days increase bike rentals.
+
+Rainfall has a strong negative effect, and humidity and wind speed also reduce rentals.
+
+Snowfall is not significant in this model.
+
+Temperature becomes non-significant after including interactions, since its effect changes by season.
+
+Spring and Winter have large negative coefficients, meaning rentals are much lower than the baseline season (Autumn).
+
+Overall, weather and season are the main drivers of bike rental behavior.

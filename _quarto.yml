@@ -32,6 +32,10 @@ website:
             href: Homework06/index.qmd
           - text: Homework 07
             href: Homework07/index.qmd
+          - text: Homework 08
+            href: Homework07/index.qmd
+          - text: Homework 09
+            href: Homework07/index.qmd
       - text: Project
         menu:
           - text: MidTerm Project 1
@@ -82,7 +86,17 @@ website:
       - section: "Homework 7"
         href: Homework07/index.qmd
         contents:
-          - Homework07/pages/concepts.qmd    
+          - Homework07/pages/concepts.qmd
+      - section: "Homework 8"
+        href: Homework08/index.qmd
+        contents:
+          - Homework08/pages/01_read_eda.qmd
+          - Homework08/pages/02_summary.qmd
+          - Homework08/pages/03_modeling_results.qmd
+      - section: "Homework 9"
+        href: Homework09/index.qmd
+        contents:
+          - Homework09/pages/index.qmd    
       - section: "Projects"
         contents:
           - MidTermProject1/index.qmd

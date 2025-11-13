@@ -1,0 +1,121 @@
+---
+title: "02_summary"
+editor: visual
+---
+
+### Load Libraries
+
+```{r}
+
+library(tidyverse)
+library(corrr)
+
+```
+
+### Load Data 
+
+```{r}
+bike_data <- readRDS("../bike_data.rds")
+str(bike_data)
+
+
+```
+
+### Requirement \# 7 summarize across the hours so that ....
+
+```{r}
+daily_bike <- bike_data |>
+filter(Functioning_Day == "Yes") |>
+group_by(Date, Seasons, Holiday) |>
+summarize(
+Rented_Bike_sum              = sum(Rented_Bike_Count),
+Rainfall_sum                 = sum(Rainfall),
+Snowfall_sum                 = sum(Snowfall),
+Temperature_mean             = mean(Temperature),
+Humidity_mean                = mean(Humidity),
+Windspeed_mean               = mean(Windspeed),
+Visibility_mean              = mean(Visibility),
+Dew_Point_Temperature_mean   = mean(Dew_Point_Temperature),
+Solar_Radiation_mean         = mean(Solar_Radiation),
+.groups = "drop"
+)
+
+head(daily_bike)
+
+
+```
+
+### Exploratory Graphs
+
+```{r}
+ggplot(daily_bike, aes(x = Temperature_mean, y = Rented_Bike_sum, color = Seasons)) +
+geom_point() +
+geom_smooth(method = "lm") +
+labs(title = "Bike Rentals vs Temperature by Season") +
+theme_minimal()
+ggplot(daily_bike, aes(x = Rainfall_sum, y = Rented_Bike_sum)) +
+geom_point(alpha = 0.6) +
+geom_smooth(method = "lm", color = "red") +
+labs(title = "Bike Rentals vs Rainfall", x = "Rainfall (mm)", y = "Total Rentals") +
+theme_minimal()
+```
+
+As temperature increases, daily bike rentals also increase. This pattern is strong in spring, summer and autumn. Winter shows low rentals even on warmer days. This means temperature is a major driver of bike demand but its effect depends on the season. Warm and sunny seasons encourage more people to use bikes.
+
+Rainfall has a strong negative effect on bike rentals. Even a small amount of rain causes rentals to drop, and heavier rain almost always leads to very low daily rental numbers. This shows that weather conditions, especially rainfall have an immediate impact on bike usage.
+
+```{r}
+ggplot(daily_bike, aes(x = Rainfall_sum, y = Rented_Bike_sum)) +
+geom_point(alpha = 0.6) +
+geom_smooth(method = "lm", color = "blue") +
+labs(
+title = "Bike Rentals vs Rainfall (Daily Level)",
+x = "Total Daily Rainfall (mm)",
+y = "Total Daily Rentals"
+) +
+theme_minimal()
+
+```
+
+Temperature has the strongest positive correlation with bike rentals, means warmer days usually lead to more rides. Wind speed and humidity show weak negative relationships.
+
+Visibility has a small positive correlation.
+
+Overall, these correlations confirm that weather conditions, especially temperature play a major role in predicting rental behavior.
+
+### Correlations
+
+```{r}
+corr_bike_data <- daily_bike |>
+select(Rented_Bike_sum, Temperature_mean, Humidity_mean,
+Windspeed_mean, Visibility_mean) |>
+correlate()
+
+corr_bike_data
+
+
+```
+
+After aggregating the data to the daily level, clear patterns appear.
+
+Warmer days and sunny seasons have the highest rental counts.
+
+Rain significantly reduces bike usage. \
+
+The correlation results support these findings by showing strong positive links with temperature
+
+and negative links with rainfall and humidity.
+
+These insights help explain why weather features are important predictors in the modeling step.
+
+```{r}
+
+
+```
+
+### Save the dataset as an RDS file for reuse
+
+```{r}
+saveRDS(daily_bike, file = "../daily_bike.rds")
+
+```

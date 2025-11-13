@@ -1,0 +1,10 @@
+---
+title: "index"
+editor: visual
+---
+
+# Homework 08 -
+
+01 – [Read_Data_And_EDA](pages/01_read_eda.qmd) 02 – [Summary](pages/02_summary.qmd) 03 – [Modelling_Results](pages/03_modelling_results.qmd)
+
+# 
