@@ -33,9 +33,9 @@ website:
           - text: Homework 07
             href: Homework07/index.qmd
           - text: Homework 08
-            href: Homework07/index.qmd
+            href: Homework08/index.qmd
           - text: Homework 09
-            href: Homework07/index.qmd
+            href: Homework09/index.qmd
       - text: Project
         menu:
           - text: MidTerm Project 1
@@ -96,7 +96,7 @@ website:
       - section: "Homework 9"
         href: Homework09/index.qmd
         contents:
-          - Homework09/pages/index.qmd    
+          - Homework09/pages/seol_bike_modeling_practice.qmd    
       - section: "Projects"
         contents:
           - MidTermProject1/index.qmd

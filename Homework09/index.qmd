@@ -1,0 +1,10 @@
+---
+title: "index"
+editor: visual
+---
+
+**Seol Bike** modeling practice
+
+**Pages:** -
+
+01 – [Seol Bike Modeling Practice](pages/seol_bike_modeling_practice.qmd)
